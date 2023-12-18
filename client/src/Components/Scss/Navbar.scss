@@ -1,0 +1,60 @@
+.logo-navbar {
+  width: 50px;
+  margin-inline: 50px;
+}
+.searchbar {
+  margin-inline: 50px;
+  padding-inline: 20px;
+  width: 500px;
+  height: 40px;
+  border-radius: 50px;
+  border: none;
+  background-color: #f0f0f0;
+}
+.navbar-nav {
+  margin-inline: 50px;
+}
+.nav-item {
+  margin-inline: 10px;
+  font-size: 20px;
+}
+
+
+.SearchBar{
+  .input-container{
+    position: relative;
+  }
+  .input-container i{
+    position: absolute;
+    right: 80px;
+    top: 28%;
+    transform: translateY(-10%);
+    font-size: 20px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .searchbar {
+    width: 100%;
+    margin-inline: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar {
+  
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo-navbar {
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-item {
+    display: flex;
+    justify-content: center;
+       }
+}
