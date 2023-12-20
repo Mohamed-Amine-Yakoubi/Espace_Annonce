@@ -1,33 +1,18 @@
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    const destinationPath = path.resolve(__dirname, "../Pictures");
-
-    // Create the destination directory if it doesn't exist
-    if (!fs.existsSync(destinationPath)) {
-      fs.mkdirSync(destinationPath, { recursive: true });
-    }
-
-    // Use a simple date format for subdirectories (e.g., YYYY_MM_DD)
-    const datePath = new Date().toISOString().split('T')[0].replace(/-/g, '_');
-    const finalPath = path.join(destinationPath, datePath);
-
-    // Create the subdirectory if it doesn't exist
-    if (!fs.existsSync(finalPath)) {
-      fs.mkdirSync(finalPath, { recursive: true });
-    }
-
-    callback(null, finalPath);
+  destination: function (req, file, cb) {
+    const dest = path.join(__dirname, '..', 'Pictures');
+    fs.mkdirSync(dest, { recursive: true });
+    cb(null, dest);
   },
-  filename: (req, file, callback) => {
-    // Use a unique identifier for the filename
-    const uniqueId = Date.now();
-    const filename = `${uniqueId}_${file.originalname}`;
-    callback(null, filename);
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
   },
 });
 
-module.exports = multer({ storage: storage });
+const upload = multer({ storage: storage }) ;
+
+module.exports = upload;

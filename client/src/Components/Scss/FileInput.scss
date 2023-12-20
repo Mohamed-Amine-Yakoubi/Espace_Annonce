@@ -1,0 +1,29 @@
+.custom-file-input {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .file-input-container {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .file-input-container input {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+  
+  .file-input-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ font-size: 80px;
+ color:    #c4d4e9;
+    padding: 10px;
+    cursor: pointer;
+  }
+  

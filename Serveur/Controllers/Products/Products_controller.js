@@ -11,8 +11,11 @@ const createToken = (payload) => {
 };
 //Create products/
 exports.Create_Products =   asyncHandler(async (req, res) => {
+ 
+ 
   try {
     const userId = req.user._id;
+
     const {
       Product_Name,
       Product_Description,
@@ -20,15 +23,25 @@ exports.Create_Products =   asyncHandler(async (req, res) => {
   
       Product_Category,
     } = req.body;
+    let productPictures = [];
+    
+    // Check if it's a single file or an array of files
+    if (req.files) {
+      productPictures = req.files.map((file) => file.path);
+    } else if (req.file) {
+      productPictures.push(req.file.path);
+    }
 
     const Products = await Products_Model.create({
       Product_Name,
       Product_Description,
       Product_Price,
-      Product_Picture:req.file.path + req.file.filename,
+      Product_Picture:productPictures ,
       Product_Category,
       createdBy: userId,
     });
+   
+
     if (Products) {
       const token = createToken(userId);
       res.header("Authorization", `Bearer ${token}`);
@@ -37,6 +50,7 @@ exports.Create_Products =   asyncHandler(async (req, res) => {
         data: Products,
       });
     }
+ 
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Product could not be added" });
@@ -124,5 +138,19 @@ exports.Delete_spec_Product = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400).json({ message: "your product have not been found" });
+  }
+});
+/**************Delete specific product************* */
+exports.Delete_All_Product = asyncHandler(async (req, res) => {
+ 
+
+  const delete_all_product = await Products_Model.deleteMany({});
+  if (delete_all_product) {
+    res.status(201).json({
+      message: "all products have been successfully deleted",
+      data: delete_all_product,
+    });
+  } else {
+    res.status(400).json({ message: " products have not been found" });
   }
 });

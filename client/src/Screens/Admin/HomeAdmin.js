@@ -1,19 +1,19 @@
- 
-import React from 'react'
-import {   useCookies } from 'react-cookie';
+import React from "react";
+
+import { SideBar } from "../../Components/SideBar";
+import { NavbarAdmin } from "../../Components/NavbarAdmin";
+import { UsersManagement } from "./UsersManagement";
 
 export const HomeAdmin = () => {
-  const [ , setCookies] = useCookies("access_token");
-  const handleLogout=()=>{
-    window.localStorage.removeItem("userID");
-    window.localStorage.removeItem("userRole");
-    setCookies("access_token","");
-    window.location.reload(false);
-  }
   return (
     <div>
-      <h1>HomeAdmin</h1>
-    <button className="nav-link" onClick={handleLogout}><i className="bi bi-box-arrow-right"></i></button>
+      <NavbarAdmin />
+      <div className="container-fluid" id="main">
+        <div className="row row-offcanvas row-offcanvas-left">
+          <SideBar />
+        
+        </div>
+      </div> 
     </div>
-  )
-}
+  );
+};

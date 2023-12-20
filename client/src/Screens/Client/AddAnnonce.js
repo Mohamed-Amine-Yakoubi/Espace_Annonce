@@ -5,11 +5,11 @@ import { Costumdroplist } from "../../Components/Costumdroplist";
 import { CostumButton } from "../../Components/CostumButton";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { InputFiles } from "../../Components/InputFiles";
 
 export const AddAnnonce = () => {
   const id_user = localStorage.getItem("userID");
   const [cookies] = useCookies(["access_token"]);
- 
 
   const [error, setError] = useState("");
   const apiUrl = "http://localhost:3000/project_announcement/getAllCategories";
@@ -23,34 +23,49 @@ export const AddAnnonce = () => {
     createdBy: id_user,
   });
   /************************************** */
- 
 
- 
   const handleSelectedCategoryId = (selectedCategoryId) => {
     setProduct({ ...product, Product_Category: selectedCategoryId || "" });
   };
-  const handleGetFiles = (e) => {
-    setProduct(prevProduct => ({ ...prevProduct, Product_Picture: e.target.files[0] }));
-  };
-  
+
   const handlechangevalue = (e) => {
-    setProduct(prevProduct => ({ ...prevProduct, [e.target.name]: e.target.value }));
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [e.target.name]: e.target.value,
+    }));
   };
-  
+  const handleFileChange = (file) => {
+  setProduct((prevProduct) => ({ ...prevProduct, Product_Picture: file[0] }));
 
-  const handleAddAnnonce = (e) => {
+  };
+
+  const handleAddAnnonce = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3000/project_announcement/AddProducts", product, {
-        headers: {
-          Authorization: `Bearer ${cookies.access_token}`,
-        },
-      })
-      .catch((error) => {
-        console.error("Error adding announcement:", error);
+    const formData = new FormData();
+    formData.append("Product_Name", product.Product_Name);
+    formData.append("Product_Description", product.Product_Description);
+    formData.append("Product_Price", product.Product_Price);
+    formData.append("Product_Category", product.Product_Category);
+    formData.append("Product_Picture", product.Product_Picture);
+    formData.append("createdBy", product.createdBy);
 
-        setError(error.response?.data?.message || "An error occurred");
-      });
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/project_announcement/AddProducts",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+        }
+      );
+      console.log("Announcement added successfully:", response.data);
+      // Clear form or redirect to another page on success
+    } catch (error) {
+      console.error("Error adding announcement:", error);
+      setError(error.response?.data?.message || "An error occurred");
+    }
   };
 
   /********************************** */
@@ -106,12 +121,10 @@ export const AddAnnonce = () => {
           </div>
           <div className="inputfield">
             <label className="label  ">Picture *</label>
-            <FormInput
+            <InputFiles
               className="Forminput  "
-              type="file"
-              name="Product_Picture"
-              placeholder="Enter picture"
-              onChange={handleGetFiles}
+              label="click here or upload an image"
+              onChange={handleFileChange}
             />
           </div>
           <CostumButton className="ButtonSubmit" type="submit">

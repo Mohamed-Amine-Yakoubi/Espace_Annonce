@@ -1,22 +1,46 @@
 const slugify = require("slugify");
 const Categorie_Model = require("../../Models/Categorie_model");
 const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const privatekey = process.env.PRIVATE_KEY;
 /**************************** */
-
+// Function to generate JWT token
+const createToken = (payload) => {
+  return jwt.sign({ id: payload }, privatekey, { expiresIn: "90d" });
+};
 exports.CreateCategories = asyncHandler(async (req, res) => {
-  const Cat_Name = req.body.CatName;
+  const Cat_Name = req.body.Cat_Name;
+  const id_user = req.user._id;
+  let Cat_Picture = [];
+
+  if (req.files) {
+    Cat_Picture = req.files.map((file) => file.path);
+  } else if (req.file) {
+    Cat_Picture.push(req.file.path);
+  }
 
   const category = await Categorie_Model.create({
     Cat_Name,
-    slug: slugify(Cat_Name),
+    Cat_Picture: Cat_Picture,
+    createdBy: id_user,
   });
-  res.status(201).json({       message: "Category has been added successfully",data: category });
+  if (category) {
+    const token = createToken(id_user);
+    res.header("Authorization", `Bearer ${token}`);
+    res
+      .status(201)
+      .json({
+        message: "Category has been added successfully",
+        data: category,
+      });
+  }
 });
 
 /****************get categories*************** */
 exports.GetCategories = asyncHandler(async (req, res) => {
   const categories = await Categorie_Model.find({});
-  res.status(201).json({   data: categories });
+  res.status(201).json({ data: categories });
 });
 /*************get specific category*************/
 exports.GetCategory = asyncHandler(async (req, res) => {

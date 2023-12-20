@@ -17,7 +17,7 @@ const Product_Shema = new Schema({
     required: [true, "Product Price required"],
   },
   Product_Picture: {
-    type: String,
+    type: [String],
     required: [true, "Product pircture required"],
   },
   Product_Category:{

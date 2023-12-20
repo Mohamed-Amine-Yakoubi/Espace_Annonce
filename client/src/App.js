@@ -10,6 +10,7 @@ import { SingUp } from "./Screens/SingUp.js";
 import { AddAnnonce } from "./Screens/Client/AddAnnonce.js";
 import { HomeAdmin } from "./Screens/Admin/HomeAdmin.js";
 import { ProtectedRoute } from "./Components/ProtectedRoute.js";
+import { UsersManagement } from "./Screens/Admin/UsersManagement.js";
 
 export const App = () => {
   const userRole = localStorage.getItem("userRole");
@@ -48,6 +49,7 @@ export const App = () => {
         </Route>
         <Route element={<ProtectedRoute role="admin" />}>
           <Route path="/HomeAdmin" element={<HomeAdmin />} />
+          <Route path="/UsersManagement" element={<UsersManagement/>}/>
         </Route>
       </Routes>
       {renderFooter()}

@@ -1,0 +1,19 @@
+.HomePage {
+ 
+  
+    .BannerImg {
+      width: 100%;
+      max-width: 100%;
+      height: auto; // This ensures that the aspect ratio is maintained
+      display: block; // Removes any extra space below the image
+      margin-bottom: 100px;
+ 
+    }
+  
+
+  @media (max-width: 768px) {
+    .BannerImg {
+      /* Adjust styles for smaller screens */
+    }
+  }
+}

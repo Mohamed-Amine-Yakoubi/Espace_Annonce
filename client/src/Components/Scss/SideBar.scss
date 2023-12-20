@@ -1,0 +1,24 @@
+.SideBar{
+    background-color: #f0f0f0;
+    width: 350px;
+    max-width: 100%;
+ 
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000;
+ 
+    span{
+        font-size: 17px;
+        margin-left: 10px;
+    }
+    li{
+        margin-top: 20px;
+    }
+    h5{
+        text-align: center;
+    }
+}
