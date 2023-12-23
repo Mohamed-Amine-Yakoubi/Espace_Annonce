@@ -8,7 +8,7 @@ const asyncHandler = require("express-async-handler");
 /****************function jwt ****************** */
 
 const createToken = (payload) => {
-  return jwt.sign({ id: payload }, privatekey, { expiresIn: "90d" });
+  return jwt.sign({ id: payload }, privatekey, { expiresIn: "990d" });
 };
 /********************************* */
 exports.SignUp = asyncHandler(async (req, res) => {

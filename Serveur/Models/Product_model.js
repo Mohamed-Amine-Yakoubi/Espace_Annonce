@@ -26,7 +26,7 @@ const Product_Shema = new Schema({
     required:[true,"product must be belong to category"]
   },
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: 'users', // Reference to the User model
     required: true,
   }

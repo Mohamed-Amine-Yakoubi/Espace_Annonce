@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormInput } from "../../Components/FormInput";
-import "../ScreensScss/AddAnnonce.scss";
+import "../Scss/AddAnnonce.scss";
 import { Costumdroplist } from "../../Components/Costumdroplist";
 import { CostumButton } from "../../Components/CostumButton";
 import axios from "axios";

@@ -1,0 +1,20 @@
+.AdminApp {
+    display: flex;
+  
+    @media (max-width: 768px) {
+      flex-direction: column; // Stack the columns on smaller screens
+    }
+  
+    .col-auto {
+      // Your existing styles for the col-auto container
+  
+      @media (max-width: 768px) {
+        width: 100%; // Make it full-width on smaller screens
+      }
+    }
+  
+    .content {
+      // Your existing styles for the content container
+    }
+  }
+  

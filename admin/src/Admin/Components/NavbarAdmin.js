@@ -31,43 +31,7 @@ export const NavbarAdmin = () => {
       </button>
       <div className="navbar-collapse collapse" id="collapsingNavbar">
         <ul className="navbar-nav">
-          <li className="nav-item active">
-            <Link className="nav-link" href="#">
-              Home <span className="sr-only">Home</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" href="//www.codeply.com">
-              Link
-            </Link>
-          </li>
-        </ul>
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link className="nav-link" href="#myAlert" data-toggle="collapse">
-              Alert
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              href=""
-              data-target="#myModal"
-              data-toggle="modal"
-            >
-              About
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link waves-effect waves-light text-white">
-              <i className="fab fa-google-plus-g"></i>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link waves-effect waves-light text-white">
-              <i className="fas fa-envelope-open-text"></i>
-            </Link>
-          </li>
+          
           <li className="nav-item">
             <Link className="nav-link waves-effect waves-light text-white">
               <i className="fas fa-align-justify"></i>

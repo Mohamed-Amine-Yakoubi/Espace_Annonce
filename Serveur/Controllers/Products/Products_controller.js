@@ -1,6 +1,6 @@
 const Products_Model = require("../../Models/Product_model");
 const jwt = require("jsonwebtoken");
-const path=require("path");
+const path = require("path");
 const asyncHandler = require("express-async-handler");
 require("dotenv").config();
 const privatekey = process.env.PRIVATE_KEY;
@@ -10,9 +10,7 @@ const createToken = (payload) => {
   return jwt.sign({ id: payload }, privatekey, { expiresIn: "90d" });
 };
 //Create products/
-exports.Create_Products =   asyncHandler(async (req, res) => {
- 
- 
+exports.Create_Products = asyncHandler(async (req, res) => {
   try {
     const userId = req.user._id;
 
@@ -20,11 +18,11 @@ exports.Create_Products =   asyncHandler(async (req, res) => {
       Product_Name,
       Product_Description,
       Product_Price,
-  
+
       Product_Category,
     } = req.body;
     let productPictures = [];
-    
+
     // Check if it's a single file or an array of files
     if (req.files) {
       productPictures = req.files.map((file) => file.path);
@@ -36,11 +34,10 @@ exports.Create_Products =   asyncHandler(async (req, res) => {
       Product_Name,
       Product_Description,
       Product_Price,
-      Product_Picture:productPictures ,
+      Product_Picture: productPictures,
       Product_Category,
       createdBy: userId,
     });
-   
 
     if (Products) {
       const token = createToken(userId);
@@ -50,7 +47,6 @@ exports.Create_Products =   asyncHandler(async (req, res) => {
         data: Products,
       });
     }
- 
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Product could not be added" });
@@ -82,6 +78,19 @@ exports.Get_Category_Products = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400).json({ message: "your products have not been found" });
+  }
+});
+/**************Get specific product by id user************* */
+exports.Get_spec_ProductByIdUser = asyncHandler(async (req, res) => {
+  const { createdId } = req.params;
+  const productbyiduser = await Products_Model.find({ createdBy: createdId });
+  if (productbyiduser) {
+    res.status(201).json({
+      message: "your product have been successfully found",
+      data: productbyiduser,
+    });
+  } else {
+    res.status(400).json({ message: "your product have not been found" });
   }
 });
 /**************Get specific product************* */
@@ -142,8 +151,6 @@ exports.Delete_spec_Product = asyncHandler(async (req, res) => {
 });
 /**************Delete specific product************* */
 exports.Delete_All_Product = asyncHandler(async (req, res) => {
- 
-
   const delete_all_product = await Products_Model.deleteMany({});
   if (delete_all_product) {
     res.status(201).json({

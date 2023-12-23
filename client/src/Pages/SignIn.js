@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import "./ScreensScss/SignIn.scss";
+import "./PagesScss/SignIn.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { FormInput } from "../Components/FormInput";
 import { CostumButton } from "../Components/CostumButton";
+ 
 /********************************/
 
 export const SignIn = () => {
@@ -25,19 +26,17 @@ export const SignIn = () => {
         setCookies("access_token", res.data.token);
         window.localStorage.setItem("userID", res.data.user._id);
         window.localStorage.setItem("userRole", res.data.user.role);
-        if (res.data.user.role === "client") {
+     
           navigate("/Home");
           window.location.reload(false);
-        } else if (res.data.user.role === "admin") {
-          navigate("/HomeAdmin");
-          window.location.reload(false);
-        }
+        
       })
       .catch((error) => {
         setError(error.response.data.message);
       });
   };
   return (
+    <div>  
     <div className="Sign">
       <div className="wrapper">
         <h1>Hello Again!</h1>
@@ -87,6 +86,8 @@ export const SignIn = () => {
           Not a member? <Link to="/SignUp">Register Now</Link>
         </div>
       </div>
+      </div>
+ 
     </div>
   );
 };

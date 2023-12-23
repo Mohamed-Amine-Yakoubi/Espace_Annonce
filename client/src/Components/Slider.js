@@ -16,7 +16,7 @@ export const Slidercategory = () => {
         console.log(error.res.data.message);
       });
   }, []);
-  console.log(category);
+ 
   var settings = {
     dots: false,
     infinite: true,

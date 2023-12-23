@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ScreensScss/SignIn.scss";
+import "./PagesScss/SignIn.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";

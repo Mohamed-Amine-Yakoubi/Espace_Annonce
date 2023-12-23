@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import logo from "../images/logo192.png";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import "../Components/Scss/Navbar.scss";
 import { SearchBar } from "./SearchBar";
@@ -9,12 +9,7 @@ import { SearchBar } from "./SearchBar";
 export const Navbar = () => {
   const [cookies, setCookies] = useCookies("access_token");
 
-  const navigate = useNavigate();
-  const handleLogoClick = () => {
-    navigate("Home");
-  };
   const removeCookies = () => {
-   
     setCookies("access_token", "");
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("userRole");
@@ -23,9 +18,9 @@ export const Navbar = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <button
+        <Link
           className="navbar-toggler"
-          type="button"
+          type="Link"
           data-bs-toggle="collapse"
           data-bs-target="#navbarText"
           aria-controls="navbarText"
@@ -33,17 +28,13 @@ export const Navbar = () => {
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
-        </button>
+        </Link>
 
         <div className="container-fluid d-flex justify-content-between ">
           <div>
-            <img
-              className="logo-navbar"
-              src={logo}
-              alt={logo}
-              onClick={handleLogoClick}
-              tabIndex="0"
-            />
+            <Link to="/Home">
+              <img className="logo-navbar" src={logo} alt={logo} tabIndex="0" />
+            </Link>
           </div>
           <div>
             <SearchBar />
@@ -51,38 +42,24 @@ export const Navbar = () => {
           <div>
             <ul className="navbar-nav  ">
               <li className="nav-item  ">
-                <button
-                  onClick={() => navigate("Shoppingcart")}
-                  className="nav-link"
-                >
-                  {" "}
+                <Link to="/Shoppingcart" className="nav-link">
                   <i className="bi bi-cart3"></i>
-                </button>
+                </Link>
               </li>
               <li className="nav-item">
-            
-                  <button
-                    onClick={() => navigate("AddAnnonce")}
-                    className="nav-link"
-                  >
-                    <i className="bi bi-plus-circle"></i>
-                  </button>
-             
-                
-             
+                <Link to="/AddAnnonce" className="nav-link">
+                  <i className="bi bi-plus-circle"></i>
+                </Link>
               </li>
               <li className="nav-item">
                 {cookies.access_token ? (
-                  <button className="nav-link" onClick={removeCookies}>
+                  <Link className="nav-link" onClick={removeCookies}>
                     <i className="bi bi-box-arrow-right"></i>
-                  </button>
+                  </Link>
                 ) : (
-                  <button
-                    onClick={() => navigate("SignIn")}
-                    className="nav-link"
-                  >
+                  <Link to="/SignIn" className="nav-link">
                     <i className="bi bi-person"></i>
-                  </button>
+                  </Link>
                 )}
               </li>
             </ul>

@@ -1,0 +1,43 @@
+.Sign .wrapper {
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+ 
+  padding: 2rem 0 3rem 0;
+  margin: 170px auto;
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  .input-container {
+    position: relative;
+  }
+  .input-container .Forminput {
+    padding-left: 40px;
+    width: 85%;
+  }
+  .input-container .icon {
+    position: absolute;
+    font-size: 23px;
+    left: 35px;
+    top: 40%;
+    transform: translateY(-50%);
+ 
+  }
+  h1 {
+    font-size: 20px;
+    color: #232323;
+    font-weight: bold;
+    margin: 30px;
+  }
+ 
+
+ 
+  
+ 
+ 
+  
+  .ButtonSubmit{
+    width: 85%;
+  }
+}

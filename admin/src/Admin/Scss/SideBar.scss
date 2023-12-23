@@ -1,15 +1,14 @@
-.SideBar{
-    background-color: #f0f0f0;
+ 
+
+.sidebar{
+ 
     width: 350px;
     max-width: 100%;
  
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 1000;
+    background-color: #f0f0f0;
+  
+ 
+   
  
     span{
         font-size: 17px;
