@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { FormInput } from "../../Components/FormInput";
+import { FormInput } from "../Components/FormInput.js";
 import "../Scss/AddAnnonce.scss";
-import { Costumdroplist } from "../../Components/Costumdroplist";
-import { CostumButton } from "../../Components/CostumButton";
+import { Costumdroplist } from "../Components/Costumdroplist";
+import { CostumButton } from "../Components/CostumButton";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { InputFiles } from "../../Components/InputFiles";
+import { InputFiles } from "../Components/InputFiles";
 
 export const AddAnnonce = () => {
   const id_user = localStorage.getItem("userID");
@@ -19,7 +19,7 @@ export const AddAnnonce = () => {
     Product_Description: "",
     Product_Price: "",
     Product_Category: "",
-    Product_Picture: "",
+    Product_Picture: [],
     createdBy: id_user,
   });
   /************************************** */
@@ -34,19 +34,23 @@ export const AddAnnonce = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleFileChange = (file) => {
-  setProduct((prevProduct) => ({ ...prevProduct, Product_Picture: file[0] }));
+  const handleFileChange = (files) => {
+  setProduct((prevProduct) => ({ ...prevProduct, Product_Picture: files }));
 
   };
-
+ 
   const handleAddAnnonce = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("Product_Name", product.Product_Name);
     formData.append("Product_Description", product.Product_Description);
     formData.append("Product_Price", product.Product_Price);
-    formData.append("Product_Category", product.Product_Category);
-    formData.append("Product_Picture", product.Product_Picture);
+    formData.append("Product_Category", product.Product_Category); 
+    for (let i = 0; i < product.Product_Picture.length; i++) {
+      formData.append("Product_Picture", product.Product_Picture[i]);
+      
+    }
+  
     formData.append("createdBy", product.createdBy);
 
     try {

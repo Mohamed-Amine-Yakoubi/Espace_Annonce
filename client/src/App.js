@@ -1,15 +1,15 @@
 import React from "react";
-import { Home } from "./Pages/Home.js";
+import { Home } from "./Client/Pages/Home.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { SignIn } from "./Pages/SignIn.js";
-import { ShoppingCart } from "./Client/Pages/ShoppingCart.js";
+import { SignIn } from "./Client/Pages/SignIn.js";
+ 
 import "./App.scss";
-import { SingUp } from "./Pages/SingUp.js";
+import { SingUp } from "./Client/Pages/SingUp.js";
 import { AddAnnonce } from "./Client/Pages/AddAnnonce.js";
  
-import { ProtectedRoute } from "./Components/ProtectedRoute.js";
-import { Navbar } from "./Components/Navbar.js";
-import { Footer } from "./Components/Footer.js";
+import { ProtectedRoute } from "./Client/Components/ProtectedRoute.js";
+import { Navbar } from "./Client/Components/Navbar.js";
+import { Footer } from "./Client/Components/Footer.js";
  
 
 export const App = () => {
@@ -24,7 +24,7 @@ export const App = () => {
         <Route path="/SignUp" element={<SingUp />} />
         <Route element={<ProtectedRoute role="client" />}>
           <Route path="/AddAnnonce" element={<AddAnnonce />} />
-          <Route path="/ShoppingCart" element={<ShoppingCart />} />
+ 
         </Route>
       </Routes>
       <Footer/>

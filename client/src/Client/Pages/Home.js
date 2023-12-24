@@ -1,6 +1,6 @@
 import React from "react";
 import Banner from "../images/Banner.jpg";
-import "./PagesScss/Home.scss";
+import "../Scss/Home.scss";
 import { Slidercategory } from "../Components/Slider";
  
 
