@@ -96,7 +96,7 @@ exports.Get_spec_ProductByIdUser = asyncHandler(async (req, res) => {
 /**************Get specific product************* */
 exports.Get_spec_Product = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const get_spec_product = await Products_Model.findById(id);
+  const get_spec_product = await Products_Model.findById({_id:id});
   if (get_spec_product) {
     res.status(201).json({
       message: "your product have been successfully found",

@@ -7,7 +7,7 @@ const categorieshema = new Shema({
   Cat_Name: {
     type: String,
     required: [true, "categorie name required"],
-    unique: [true, "categorie must be unique"],
+
   } ,
   Cat_Picture: {
     type: [String],

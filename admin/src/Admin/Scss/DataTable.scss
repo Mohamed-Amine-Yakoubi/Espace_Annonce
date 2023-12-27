@@ -1,24 +1,66 @@
 .table {
   overflow-x: auto;
-
-  width: 800px;
-
   margin-bottom: 20px;
-  thead th {
+  width: 800px;
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+  
+  }
+
+  thead td {
     background: #212529 !important;
     color: white;
+    vertical-align: middle;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
   }
 
   th,
   td {
     padding: 8px;
     text-align: left;
+    font-size: 15px;
   }
 
-  th {
-    background-color: #f2f2f2;
+  tbody td {
+    vertical-align: middle;
+    height: 70px;
+    
   }
-
+  .tabletitle{
+    vertical-align: middle;
+    height: 60px;
+    background-color: #f3f3f3;
+  }
+  
+.SearchBar{
+  .input-container{
+    position: relative;
+  }
+  .input-container i{
+    position: absolute;
+    right: 80px;
+    top: 28%;
+    transform: translateY(-10%);
+    font-size: 20px;
+  }
+  .searchbar {
+    margin-inline: 50px;
+    padding-inline: 20px;
+    width: 500px;
+    height: 40px;
+    border-radius: 50px;
+    border: none;
+    background-color: #f0f0f0;
+  }
   @media only screen and (max-width: 600px) {
     table {
       border-collapse: collapse;
@@ -26,11 +68,59 @@
       overflow-x: auto;
       display: block;
     }
-
+    .searchbar {
+      width: 100%;
+      margin-inline: 20px;
+      display: flex;
+      justify-content: center;
+    }
     th,
     td {
       text-align: center;
       width: auto;
+      display: block; /* Allow the cells to stack vertically */
+      text-align: center;
+    }
+
+    td {
+      border: none; /* Remove borders between stacked cells */
+      position: relative;
+    }
+
+    td:before {
+      content: attr(data-label);
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
     }
   }
+}
+
+.custom-image-gallery .image-gallery-left-nav,
+.custom-image-gallery .image-gallery-right-nav {
+  width: 10px; // Adjust the width of the arrows as needed
+  height: 40px; // Adjust the height of the arrows as needed
+}
+
+}
+
+ 
+.pagination {
+  display: flex;
+  justify-content: center;
+
+}
+
+.pagination li {
+  margin: 0 5px;
+
+  list-style: none !important;
+color: #212529;
+}
+
+.pagination .active {
+  font-weight: bold;
+ 
 }

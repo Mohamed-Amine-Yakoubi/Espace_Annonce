@@ -6,7 +6,7 @@ require("dotenv").config();
 const privatekey = process.env.PRIVATE_KEY;
 /**************************** */
 // Function to generate JWT token
-// Function to generate JWT token
+ 
 const createToken = (payload) => {
   return jwt.sign({ id: payload }, privatekey, { expiresIn: "90d" });
 };
@@ -33,15 +33,17 @@ exports.CreateCategories = asyncHandler(async (req, res) => {
       message: "Category has been added successfully",
       data: category,
     });
+  } else {
+    res.status(400).json({
+      message: "The category has not been added"
+    });
   }
 });
 
 /****************get categories*************** */
 exports.GetCategories = asyncHandler(async (req, res) => {
- 
   const categories = await Categorie_Model.find({});
   if (categories) {
- 
     res.status(201).json({
       message: "Category has been added successfully",
       data: categories,
@@ -50,11 +52,9 @@ exports.GetCategories = asyncHandler(async (req, res) => {
 });
 /*************get specific category*************/
 exports.GetCategory = asyncHandler(async (req, res) => {
- 
   const { id } = req.params;
   const category = await Categorie_Model.findById(id);
   if (category) {
-  
     res.status(201).json({ data: category });
   } else {
     res.status(400).json({ message: "no category for this id" });

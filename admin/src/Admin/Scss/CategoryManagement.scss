@@ -1,0 +1,47 @@
+.AddAnnonce {
+    width: 800px;
+    margin: 50px auto;
+    padding: 2rem 0 1rem 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    .inputfield {
+      margin-top: 10px;
+          
+    }
+    .img{
+      width: 50px;
+    }
+    .Forminput {
+      width: 100%;
+      max-width: 500px;
+    }
+    .ButtonSubmit {
+    
+        width: 20%;
+      
+    }
+    .label {
+      max-width: 800px;
+      width: 100%;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+  
+    /* Media query for smaller screens */
+    @media screen and (max-width: 768px) {
+      .AddAnnonce {
+        padding: 2rem 1rem;
+       
+      }
+      .Forminput,
+      .label {
+        width: 100%;
+        max-width: none;
+       
+       
+      }
+    }
+  }
+  

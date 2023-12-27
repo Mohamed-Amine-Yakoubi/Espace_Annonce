@@ -4,7 +4,7 @@ const CategorieControllers = require("../../Controllers/Products/Categorie_contr
 const middleware=require("../../Middleware/auth.js");
 const {param}=require("express-validator");
 const PictureMiddle = require("../../Middleware/PicturesMiddle.js");
-route.post("/addCategory",middleware.Protect,middleware.isAdmin, PictureMiddle.single('Cat_Picture'), CategorieControllers.CreateCategories);
+route.post("/addCategory",middleware.Protect,middleware.isAdmin, PictureMiddle.array('Cat_Picture',5), CategorieControllers.CreateCategories);
 route.get("/getAllCategories", CategorieControllers.GetCategories);
 route.get("/getcategory/:id", CategorieControllers.GetCategory);
 route.put("/updateCategory/:id",middleware.Protect,middleware.isAdmin, CategorieControllers.UpdateCategory);

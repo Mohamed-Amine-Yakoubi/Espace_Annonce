@@ -55,12 +55,12 @@ export const UsersManagement = () => {
       <table className="table container">
       <thead   >
           <tr>
-            <th>id</th>
-            <th>Name</th>
-            <th>Firstname</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th></th>
+            <td>id</td>
+            <td>Name</td>
+            <td>Firstname</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>

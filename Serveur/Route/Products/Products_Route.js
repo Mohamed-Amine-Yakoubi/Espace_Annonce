@@ -8,14 +8,12 @@ const PictureMiddle = require("../../Middleware/PicturesMiddle.js");
 
 route.post(
   "/AddProducts",
-  middleware.Protect,
-  PictureMiddle.array("Product_Picture", 5),
+  middleware.Protect, PictureMiddle.array("Product_Picture",5),
   Products_Controllers.Create_Products
 );
 route.get("/GetAllProducts", Products_Controllers.Get_Products);
 route.get(
   "/get_specProductById/:id",
-  param("id").isMongoId().withMessage("invalid category id"),
   Products_Controllers.Get_spec_Product
 );
 route.get(

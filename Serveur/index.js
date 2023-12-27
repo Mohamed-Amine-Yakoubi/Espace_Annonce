@@ -15,7 +15,7 @@ app.use(cors());
 app.use("/project_announcement", CategorieRouter);
 app.use("/project_announcement", ProductsRouter);
 app.use("/project_announcement", UserRouter);
-app.use(express.static('public'));
+app.use('/Pictures',express.static('Pictures'));
 app.all("*", (req, res, next) => {
   next(new ApiError(`can't find this route :${req.originalUrl}`, 400));
 });

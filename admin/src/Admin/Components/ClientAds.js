@@ -67,26 +67,35 @@ export const ClientAds = () => {
   };
   return (
     <div>
-      <table className="table">
+      <table className="table container">
         <thead style={{ backgroundColor: "dark", color: "white" }}>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title </th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">category</th>
-            <th scope="col"></th>
+            <td>#</td>
+            <td>Pictures </td>
+            <td>Title </td>
+            <td>Description</td>
+            <td>Price</td>
+            <td>category</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
           {ads.map((e, i) => (
-            <tr>
-              <th scope="row"> {i + 1} </th>
+            <tr key={i+1}>
+             <td>{i}</td>
+              <td>
+                {e.Product_Picture.length > 1 && (
+                  <img
+                    src={`http://localhost:3000/${e.Product_Picture[1]}`}
+                    alt={e.Product_Picture[1]}
+                  />
+                )}
+              </td>
               <td> {e.Product_Name} </td>
               <td> {e.Product_Description} </td>
               <td> {e.Product_Price} </td>
               <td> {e.category} </td>
-              <td className="d-flex justify-content-center">
+              <td className=" ">
                 <button className="btn btn-danger mx-2">
                   <MdDelete onClick={() => handleDelete(e._id)} />
                 </button>

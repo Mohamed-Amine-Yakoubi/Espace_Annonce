@@ -12,6 +12,7 @@ import { UsersManagement } from "./Admin/Pages/UsersManagement.js";
 import { ProductsManagement } from "./Admin/Pages/ProductsManagement.js";
 import { CategoryManagement } from "./Admin/Pages/CategoryManagement.js";
 import { ClientAds } from "./Admin/Components/ClientAds.js";
+import { AdsDetails } from "./Admin/Components/AdsDetails.js";
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -47,7 +48,7 @@ export const App = () => {
             <SideBar />
           </div>
         )}
-        <div className="mt-5 mx-auto">
+        <div className="mt-5 mx-auto content">
           <Routes>
             <Route element={<ProtectedRoute role="admin" />}>
               <Route path="/AdminApp" element={<AdminApp />} />
@@ -66,6 +67,10 @@ export const App = () => {
               <Route
                 path="/AdminApp/UsersManagement/clientAds/:id"
                 element={<ClientAds />}
+              />
+              <Route
+                path="/AdminApp/ProductsManagement/AdsDetails/:id"
+                element={<AdsDetails />}
               />
             </Route>
           </Routes>

@@ -37,7 +37,7 @@ export const SideBar = (onSelect) => {
   };
 
   return (
-    <div className=" sidebar d-flex flex-column justify-content-space-between    p-4 vh-100  ">
+    <div className=" sidebar d-flex flex-column justify-content-space-between   p-4 vh-100 ">
       <ul className="nav nav-pills flex-column p-0 m-0">
         <li className="nav-item mb-2 mt-5">
           <Link className="nav-link text-secondary">
