@@ -10,6 +10,10 @@ import { AddAnnonce } from "./Client/Pages/AddAnnonce.js";
 import { ProtectedRoute } from "./Client/Components/ProtectedRoute.js";
 import { Navbar } from "./Client/Components/Navbar.js";
 import { Footer } from "./Client/Components/Footer.js";
+import { ClientAnnonce } from "./Client/Pages/ClientAnnonce.js";
+import { ClientInformation } from "./Client/Pages/ClientInformation.js";
+import { ClientContact } from "./Client/Pages/ClientContact.js";
+import { AdsDetails } from "./Client/Pages/AdsDetails.js";
  
 
 export const App = () => {
@@ -24,6 +28,10 @@ export const App = () => {
         <Route path="/SignUp" element={<SingUp />} />
         <Route element={<ProtectedRoute role="client" />}>
           <Route path="/AddAnnonce" element={<AddAnnonce />} />
+          <Route path="/ClientAnnonce" element={<ClientAnnonce />} />
+          <Route path="/ClientInformation" element={<ClientInformation />} />
+          <Route path="/ClientContact" element={<ClientContact />} />
+          <Route path="/AdsDetails/:id" element={<AdsDetails />} />
  
         </Route>
       </Routes>

@@ -15,16 +15,21 @@ import { ClientAds } from "./Admin/Components/ClientAds.js";
 import { AdsDetails } from "./Admin/Components/AdsDetails.js";
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const [cookies] = useCookies(["access_token"]);
 
   useEffect(() => {
     const checkAuthentication = () => {
       setIsAuthenticated(!!cookies.access_token);
+      setLoading(false); // Set loading to false once the authentication check is done
     };
 
     checkAuthentication();
   }, [cookies.access_token, setIsAuthenticated]);
+  if (loading) {
+    // You can render a loading indicator here
+    return <div>Loading...</div>;
+  }
   return (
     <Router>
       <Routes>
@@ -69,7 +74,7 @@ export const App = () => {
                 element={<ClientAds />}
               />
               <Route
-                path="/AdminApp/ProductsManagement/AdsDetails/:id"
+                path="/AdsDetails/:id"
                 element={<AdsDetails />}
               />
             </Route>

@@ -19,7 +19,20 @@
   font-size: 20px;
 }
 
-
+.icon{
+  font-size:22px;
+  color: rgb(56, 56, 56);
+}
+span{
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#dropdown-basic{
+  background-color: transparent;
+  border: none;
+  color: rgb(56, 56, 56);
+ margin-top: 6px;
+}
 .SearchBar{
   .input-container{
     position: relative;

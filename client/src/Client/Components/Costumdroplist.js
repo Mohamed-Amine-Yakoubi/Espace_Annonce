@@ -9,6 +9,7 @@ export const Costumdroplist = ({
   idKey,
   valueKey,
   onSelect,
+  imgKey
 }) => {
   const [options, setOptions] = useState([]);
 
@@ -40,7 +41,9 @@ export const Costumdroplist = ({
             Category
           </option>
           {options.map((option) => (
+     
             <option key={option[idKey]} value={option[valueKey]}>
+                     <img src={option[imgKey]}  alt="img"/>
               {option[labelKey]}
             </option>
           ))}

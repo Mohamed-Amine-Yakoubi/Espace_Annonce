@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const categorie = require("./Categorie_model");
 const Schema = mongoose.Schema;
-
+const moment = require('moment');
 const Product_Shema = new Schema({
  
   Product_Name: {
@@ -15,6 +15,17 @@ const Product_Shema = new Schema({
   Product_Price: {
     type: String,
     required: [true, "Product Price required"],
+  },
+  Product_Location: {
+    type: String,
+    required: [true, "Product location required"],
+  },
+  Product_Date: {
+    type: Date,
+    default: Date.now, 
+    required: [true, "Product Date required"],
+   get: (val) => moment(val).format('YYYY-MM-DD'),
+  
   },
   Product_Picture: {
     type: [String],
@@ -33,7 +44,11 @@ const Product_Shema = new Schema({
 },{
   timestamps:true,
 });
-
+// Set the date format using moment.js before saving
+Product_Shema.pre('save', function (next) {
+  this.Product_Date = moment(this.Product_Date).format("YYYY-MM-DD");
+  next();
+});
 const Products=mongoose.model("Products",Product_Shema);
 
 module.exports=Products;

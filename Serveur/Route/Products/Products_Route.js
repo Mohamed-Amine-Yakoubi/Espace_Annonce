@@ -17,6 +17,10 @@ route.get(
   Products_Controllers.Get_spec_Product
 );
 route.get(
+  "/get_UserProduct/:createdBy",
+  Products_Controllers.Get_User_Product
+);
+route.get(
   "/Get_spec_ProductByIdUser/:createdId",
   Products_Controllers.Get_spec_ProductByIdUser
 );

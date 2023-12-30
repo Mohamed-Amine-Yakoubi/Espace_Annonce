@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import "../Scss/AdsDetails.scss";
 import "../Scss/GalleryImage.scss";
 import { useParams } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/scss/image-gallery.scss";
-
+import { FaLocationDot } from "react-icons/fa6";
+import { BiSolidCategoryAlt } from "react-icons/bi";
 export const AdsDetails = () => {
   const [ads, setAds] = useState([]);
 
@@ -61,27 +62,62 @@ export const AdsDetails = () => {
       </div>
     );
   };
-
+  const customRenderThumbInner = (item) => {
+    return (
+      <div className="image-gallery-thumbnail-inner">
+        <img
+          src={item.thumbnail}
+          alt={item.description}
+          style={{ width: '100%', height: '60px', objectFit: 'cover' }}
+        />
+      </div>
+    );
+  };
   return (
-    <div className="d-flex justify-content-space-between">
-      <div className="image-gallery-container">
+    <div>
+    <div className="container-fluid mt-5 mb-5 d-flex justify-content-space-between AdsDetails">
+      <div className="image-gallery-container  mx-5   ">
         <ImageGallery
           items={galleryItems}
           showNav={false}
           renderItem={customRenderItem}
           showPlayButton={false}
           showFullscreenButton={false}
+          renderThumbInner={customRenderThumbInner}
         />
       </div>
-      {ads.map((e,i) => (
-        <div className="ads-content" key={i}>
+      {ads.map((e, i) => (
+        <div className="AdsContent " key={i}>
           <h3>{e.Product_Name}</h3>
-          <p>{e.Product_Price}</p>
-          <p>{e.category}</p>
-          <hr/>
+          <h2>{e.Product_Price}<span> DT</span></h2>
+          <div className="mt-5 mb-5">
+            <p>
+              <BiSolidCategoryAlt
+                style={{
+                  opacity: "90%",
+                  fontSize: "14px",
+                  marginRight: "6px",
+                }}
+              />
+              {e.category}
+            </p>
+            <p>
+              <FaLocationDot
+                style={{
+                  opacity: "90%",
+                  fontSize: "14px",
+                  marginRight: "6px",
+                }}
+              />
+              {`${e.Product_Location} , ${e.displayTime}`}
+            </p>
+          </div>
+          <hr />
+          <h4>Description</h4>
           <p>{e.Product_Description}</p>
         </div>
       ))}
     </div>
+  </div>
   );
 };

@@ -6,18 +6,19 @@ import { CostumButton } from "../Components/CostumButton";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { InputFiles } from "../Components/InputFiles";
-
+import toast, { Toaster } from "react-hot-toast";
 export const AddAnnonce = () => {
   const id_user = localStorage.getItem("userID");
   const [cookies] = useCookies(["access_token"]);
 
-  const [error, setError] = useState("");
+ 
   const apiUrl = "http://localhost:3000/project_announcement/getAllCategories";
 
   const [product, setProduct] = useState({
     Product_Name: "",
     Product_Description: "",
     Product_Price: "",
+    Product_Location: "",
     Product_Category: "",
     Product_Picture: [],
     createdBy: id_user,
@@ -35,22 +36,20 @@ export const AddAnnonce = () => {
     }));
   };
   const handleFileChange = (files) => {
-  setProduct((prevProduct) => ({ ...prevProduct, Product_Picture: files }));
-
+    setProduct((prevProduct) => ({ ...prevProduct, Product_Picture: files }));
   };
- 
+
   const handleAddAnnonce = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("Product_Name", product.Product_Name);
     formData.append("Product_Description", product.Product_Description);
     formData.append("Product_Price", product.Product_Price);
-    formData.append("Product_Category", product.Product_Category); 
+    formData.append("Product_Category", product.Product_Category);
     for (let i = 0; i < product.Product_Picture.length; i++) {
       formData.append("Product_Picture", product.Product_Picture[i]);
-      
     }
-  
+    formData.append("Product_Location", product.Product_Location);
     formData.append("createdBy", product.createdBy);
 
     try {
@@ -64,22 +63,22 @@ export const AddAnnonce = () => {
           },
         }
       );
-      console.log("Announcement added successfully:", response.data);
-      // Clear form or redirect to another page on success
+      if (response) {
+        toast.success("ads added successfully!")
+      } 
     } catch (error) {
-      console.error("Error adding announcement:", error);
-      setError(error.response?.data?.message || "An error occurred");
+   
+        toast.error("ads failed to add ")
+ 
     }
   };
 
   /********************************** */
   return (
     <div className="container ">
+      <Toaster />
       <div className="AddAnnonce    ">
         <h1>Create an ad</h1>
-        {error ? (
-          <p className="alert alert-danger text-center">{error}</p>
-        ) : null}
 
         <form onSubmit={handleAddAnnonce}>
           <div className="inputfield">
@@ -96,6 +95,7 @@ export const AddAnnonce = () => {
             <label className="label  ">Category*</label>
 
             <Costumdroplist
+  
               apiUrl={apiUrl}
               labelKey="Cat_Name"
               idKey="_id"
@@ -124,9 +124,19 @@ export const AddAnnonce = () => {
             />
           </div>
           <div className="inputfield">
+            <label className="label  ">Location? *</label>
+            <FormInput
+              className="Forminput  "
+              type="text"
+              name="Product_Location"
+              placeholder="Enter your Location"
+              onChange={handlechangevalue}
+            />
+          </div>
+          <div className="inputfield">
             <label className="label  ">Picture *</label>
             <InputFiles
-              className="Forminput  "
+              className="Forminput  img"
               label="click here or upload an image"
               onChange={handleFileChange}
             />

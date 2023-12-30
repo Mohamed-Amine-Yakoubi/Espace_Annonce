@@ -14,11 +14,12 @@ import ReactPaginate from "react-paginate";
 
 import toast, { Toaster } from "react-hot-toast";
 export const CategoryManagement = () => {
+  const [currentPage, setCurrentPage] = useState(0);
   const [filter, setFilter] = useState("");
   const id_user = localStorage.getItem("userID");
   const [cookies] = useCookies(["access_token"]);
   const [rescategory, setRescategory] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+
   const [category, setCategory] = useState({
     Cat_Name: "",
     Cat_Picture: [],
@@ -192,7 +193,12 @@ export const CategoryManagement = () => {
           <td></td>
         </tr>
         <tbody>
-          {paginatedData.map((e, i) => (
+        {paginatedData.length === 0 ? (
+            <tr className="tabletitle">
+              <td colSpan={6} className="text-center">there are no categories</td>
+            </tr>
+          ) : (
+         paginatedData.map((e, i) => (
             <tr key={i + 1}>
               <td>{i}</td>
               <td>
@@ -210,10 +216,12 @@ export const CategoryManagement = () => {
                 </button>
               </td>
             </tr>
-          ))}
+          )))}
         </tbody>
       </table>
-
+      {rescategory.length>5 ?(
+    
+    
       <ReactPaginate
         previousLabel={<FaArrowAltCircleLeft style={{ color: "#212529" }} />}
         nextLabel={<FaArrowAltCircleRight style={{ color: "#212529" }} />}
@@ -224,7 +232,7 @@ export const CategoryManagement = () => {
         onPageChange={handlePageClick}
         containerClassName={"pagination"}
         activeClassName={"active"}
-      />
+        />):null}
     </div>
   );
 };

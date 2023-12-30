@@ -20,13 +20,14 @@ export const InputFiles = ({ onChange, label }) => {
         </div>
         <label>{label}</label>
       </div>
-      <div className="image-previews">
+      <div className="image-previews d-flex justify-content-center ">
         {selectedFile.map((file, index) => (
           <img
             key={index}
             src={URL.createObjectURL(file)}
             alt={`Selected File ${index + 1}`}
-            className="image-preview"
+            className="image-preview mx-4 mt-2 mb-2"
+            style={{width:"90px",height:"90px"}}
           />
         ))}
       </div>

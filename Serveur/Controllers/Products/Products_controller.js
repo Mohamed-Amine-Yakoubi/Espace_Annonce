@@ -18,7 +18,8 @@ exports.Create_Products = asyncHandler(async (req, res) => {
       Product_Name,
       Product_Description,
       Product_Price,
-
+      Product_Location,
+      
       Product_Category,
     } = req.body;
     let productPictures = [];
@@ -34,6 +35,7 @@ exports.Create_Products = asyncHandler(async (req, res) => {
       Product_Name,
       Product_Description,
       Product_Price,
+      Product_Location,
       Product_Picture: productPictures,
       Product_Category,
       createdBy: userId,
@@ -149,6 +151,22 @@ exports.Delete_spec_Product = asyncHandler(async (req, res) => {
     res.status(400).json({ message: "your product have not been found" });
   }
 });
+/**************Get user product************* */
+exports.Get_User_Product = asyncHandler(async (req, res) => {
+  const { createdBy } = req.params; // Change from req.body to req.query
+
+  const get_user_product = await Products_Model.find({ createdBy: createdBy });
+
+  if (get_user_product.length > 0) {
+    res.status(201).json({
+      message: "your product have been successfully found",
+      data: get_user_product,
+    });
+  } else {
+    res.status(400).json({ message: "your product have not been found" });
+  }
+});
+
 /**************Delete specific product************* */
 exports.Delete_All_Product = asyncHandler(async (req, res) => {
   const delete_all_product = await Products_Model.deleteMany({});
