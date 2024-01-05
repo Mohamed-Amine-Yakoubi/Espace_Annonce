@@ -15,6 +15,12 @@ import { ClientInformation } from "./Client/Pages/ClientInformation.js";
 import { ClientContact } from "./Client/Pages/ClientContact.js";
 import { AdsDetails } from "./Client/Pages/AdsDetails.js";
  
+import { SpecificAds } from "./Client/Components/SpecificAds.js";
+ 
+import { ProductUpdate } from "./Client/Pages/ProductUpdate.js";
+ 
+ 
+ 
 
 export const App = () => {
   return (
@@ -26,12 +32,15 @@ export const App = () => {
         <Route path="/Home" element={<Home />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SingUp />} />
+        <Route path="/AdsDetails/:id" element={<AdsDetails />} />
+        <Route path="/SpecificAds/:Cat_Name" element={<SpecificAds />} />
         <Route element={<ProtectedRoute role="client" />}>
           <Route path="/AddAnnonce" element={<AddAnnonce />} />
           <Route path="/ClientAnnonce" element={<ClientAnnonce />} />
           <Route path="/ClientInformation" element={<ClientInformation />} />
           <Route path="/ClientContact" element={<ClientContact />} />
-          <Route path="/AdsDetails/:id" element={<AdsDetails />} />
+          <Route path="/ProductUpdate/:id" element={<ProductUpdate />} />
+ 
  
         </Route>
       </Routes>

@@ -37,13 +37,13 @@ export const Costumdroplist = ({
     <div className="costumdroplist">
       <div className="select-container">
         <select onChange={handleSelectChange} >
-        <option disabled value="">
+        <option disabled value=""  selected>
             Category
           </option>
           {options.map((option) => (
      
             <option key={option[idKey]} value={option[valueKey]}>
-                     <img src={option[imgKey]}  alt="img"/>
+                
               {option[labelKey]}
             </option>
           ))}

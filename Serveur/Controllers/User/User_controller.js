@@ -83,9 +83,9 @@ exports.GetAllUser = asyncHandler(async (req, res) => {
 });
 /***********************get  user by id****************************** */
 exports.GetUserById = asyncHandler(async (req, res) => {
-  const {id}=req.params;
+  const { id } = req.params;
   try {
-    const getuserbyid = await User.find({  _id:id });
+    const getuserbyid = await User.find({ _id: id });
     if (getuserbyid) {
       res.status(200).json({ message: "user with id ", data: getuserbyid });
     }
@@ -103,7 +103,7 @@ exports.DeleteUsers = asyncHandler(async (req, res) => {
         .status(200)
         .json({ message: "all users have been successfully deleted" });
     }
-    return (deleteusers);
+    return deleteusers;
   } catch (error) {
     res.status(400).json({ error: "Users delete failed" });
   }
@@ -123,5 +123,58 @@ exports.DeleteSpecificUser = asyncHandler(async (req, res) => {
     return deletespecificuser;
   } catch (error) {
     res.status(400).json({ error: "User delete failed" });
+  }
+});
+
+/**************************************** */
+exports.Update_spec_User = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { User_name, User_firstname, User_email,   User_phone } =
+    req.body;
+ 
+  const updateFields = {
+    User_name: User_name,
+    User_firstname: User_firstname,
+    User_email: User_email,
+   
+    User_phone: User_phone,
+  };
+  const update_spec_user = await User.findOneAndUpdate(
+    { _id: id },
+    updateFields,
+    { new: true }
+  );
+  if (update_spec_user) {
+    res.status(201).json({
+      message: "your account have been successfully updated",
+      data: update_spec_user,
+    });
+  } else {
+    res.status(400).json({ message: "your account have not been found" });
+  }
+});
+/**************************************** */
+exports.Update_spec_UserPassword = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { User_password  } =
+    req.body;
+    const hashedPassword = await bcrypt.hash(User_password, 10);
+  const updateFields = {
+  
+    User_password: hashedPassword,
+ 
+  };
+  const update_spec_userpassword = await User.findOneAndUpdate(
+    { _id: id },
+    updateFields,
+    { new: true }
+  );
+  if (update_spec_userpassword) {
+    res.status(201).json({
+      message: "your account have been successfully updated",
+      data: update_spec_userpassword,
+    });
+  } else {
+    res.status(400).json({ message: "your account have not been found" });
   }
 });

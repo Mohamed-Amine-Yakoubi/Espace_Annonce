@@ -19,7 +19,7 @@ exports.Create_Products = asyncHandler(async (req, res) => {
       Product_Description,
       Product_Price,
       Product_Location,
-      
+
       Product_Category,
     } = req.body;
     let productPictures = [];
@@ -98,7 +98,7 @@ exports.Get_spec_ProductByIdUser = asyncHandler(async (req, res) => {
 /**************Get specific product************* */
 exports.Get_spec_Product = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const get_spec_product = await Products_Model.findById({_id:id});
+  const get_spec_product = await Products_Model.findById({ _id: id });
   if (get_spec_product) {
     res.status(201).json({
       message: "your product have been successfully found",
@@ -112,26 +112,55 @@ exports.Get_spec_Product = asyncHandler(async (req, res) => {
 /**************Update specific product************* */
 exports.Update_spec_Product = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { Product_Name, Product_Description, Product_Price, Product_Picture } =
-    req.body;
+
+  const {
+    Product_Name,
+    Product_Description,
+    Product_Price,
+    Product_Location,
+    Product_Category,
+    createdBy,
+  } = req.body;
+
+  let productPictures = [];
+
+  if (req.files) {
+    productPictures = req.files.map((file) => file.path);
+  } else if (req.file) {
+    productPictures.push(req.file.path);
+  }
+
   const updateFields = {
-    Product_Name: Product_Name,
-    Product_Description: Product_Description,
-    Product_Price: Product_Price,
-    Product_Picture: Product_Picture,
+    Product_Name,
+    Product_Description,
+    Product_Price,
+    Product_Location,
+    Product_Category,
+    Product_Picture: productPictures,
   };
-  const update_spec_product = await Products_Model.findOneAndUpdate(
-    { _id: id },
-    updateFields,
-    { new: true }
-  );
-  if (update_spec_product) {
-    res.status(201).json({
-      message: "your product have been successfully updated",
-      data: update_spec_product,
-    });
-  } else {
-    res.status(400).json({ message: "your product have not been found" });
+
+  try {
+    const updatedProduct = await Products_Model.findOneAndUpdate(
+      { _id: id },
+      updateFields,
+      { new: true }
+    );
+
+    if (updatedProduct) {
+      const token = createToken(createdBy);
+      res.header("Authorization", `Bearer ${token}`);
+      res.status(201).json({
+        message: "Your product has been successfully updated",
+        data: updatedProduct,
+      });
+    } else {
+      res.status(404).json({ message: `Product with ID ${id} not found` });
+    }
+  } catch (error) {
+    // Handle database or other errors
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 });
 
@@ -177,5 +206,39 @@ exports.Delete_All_Product = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400).json({ message: " products have not been found" });
+  }
+});
+/**************Update state specific product************* */
+exports.Update_State_Product = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user._id;
+  const { state } = req.body;
+
+  const updateFields = {
+    state: state,
+  };
+
+  try {
+    const updatedstateProduct = await Products_Model.findOneAndUpdate(
+      { _id: id },
+      updateFields,
+      { new: true }
+    );
+
+    if (updatedstateProduct) {
+      const token = createToken(userId);
+      res.header("Authorization", `Bearer ${token}`);
+      res.status(201).json({
+        message: "Your product has been successfully updated",
+        data: updatedstateProduct,
+      });
+    } else {
+      res.status(404).json({ message: `Product with ID ${id} not found` });
+    }
+  } catch (error) {
+    // Handle database or other errors
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 });

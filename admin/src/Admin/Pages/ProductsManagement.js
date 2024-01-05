@@ -31,9 +31,9 @@ export const ProductsManagement = () => {
               const categoryRes = await axios.get(
                 `http://localhost:3000/project_announcement/getcategory/${product.Product_Category}`
               );
-    
+
               const category = categoryRes.data.data;
-    
+
               return {
                 ...product,
                 category: category.Cat_Name,
@@ -44,7 +44,7 @@ export const ProductsManagement = () => {
                 product.Product_Category,
                 categoryError
               );
-    
+
               // Handle category error, return a default value, or throw it again
               return {
                 ...product,
@@ -66,7 +66,7 @@ export const ProductsManagement = () => {
   }, []);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US');
+    return date.toLocaleDateString("en-US");
   };
   const handleDelete = async (adsId) => {
     try {
@@ -91,13 +91,13 @@ export const ProductsManagement = () => {
     setCurrentPage(selectedPage.selected);
   };
   const offset = currentPage * itemsPerPage;
-
   const filteredData = ads.filter(
     (ads) =>
-      ads.Product_Name.toLowerCase().includes(filter.toLowerCase()) ||
-      ads.category.toLowerCase().includes(filter.toLowerCase()) ||
-      ads.Product_Price.toLowerCase().includes(filter.toLowerCase())
+      (ads.Product_Name?.toLowerCase().includes(filter.toLowerCase()) ||
+      ads.category?.toLowerCase().includes(filter.toLowerCase()) ||
+      ads.Product_Price?.toLowerCase().includes(filter.toLowerCase())) ?? false
   );
+  
 
   // Paginate the filtered data
   const paginatedData = filteredData.slice(offset, offset + itemsPerPage);
@@ -109,7 +109,7 @@ export const ProductsManagement = () => {
       <table className="table container">
         <thead>
           <tr>
-            <td colSpan={7}>
+            <td colSpan={8}>
               <div className="d-flex justify-content-between">
                 <div className="mt-2">client Ads</div>
                 <div>
@@ -125,15 +125,16 @@ export const ProductsManagement = () => {
             <td>id</td>
             <td>Picture</td>
             <td>Product Title</td>
-      
+
             <td>Product category</td>
             <td>Product Price</td>
             <td>Date</td>
+            <td>State</td>
             <td></td>
           </tr>
           {paginatedData.length === 0 ? (
             <tr className="tabletitle">
-              <td colSpan={7} className="text-center">
+              <td colSpan={8} className="text-center">
                 there are no customer announcements
               </td>
             </tr>
@@ -154,6 +155,8 @@ export const ProductsManagement = () => {
                 <td>{e.category}</td>
                 <td>{e.Product_Price}</td>
                 <td>{formatDate(e.Product_Date)}</td>
+            
+                <td style={{ color: e.state === "approved" ? "green" : e.state==="pending"?"#ff9966" : "red"}}>{e.state}</td>
 
                 <td className=" d-flex  ">
                   <button className="btn btn-danger  mx-1 ">

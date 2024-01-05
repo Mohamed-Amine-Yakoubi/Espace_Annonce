@@ -1,29 +1,49 @@
- 
-
-.sidebar{
- 
-    width: 350px;
-    max-width: 100%;
- 
-    background-color: #f0f0f0;
+.sidebar {
+  width: 100%;
+  max-width: 400px;
+  background-color: #f0f0f0;
+  height: 100%;
   
- 
-   height: 100%;
- 
-    span{
-        font-size: 17px;
-        margin-left: 10px;
+  margin-top: 80px;
+  transition: transform 0.3s ease-in-out;  
+  position: relative;  
+
+  .toggle-button {
+    position: absolute;
+    transition: transform 0.3s ease-in-out, left 0.3s ease-in-out; /* Add left transition */
+    left: 300px; /* Adjust the initial position */
+    z-index: 2;
+  }
+
+  &.hidden {
+    transform: translateX(-100%);
+    .toggle-button {
+      left: 0; /* Adjust the button position when the sidebar is hidden */
+      transform: translateX(0);
     }
-    li{
-        margin-top: 20px;
+  }
+
+  &.moved {
+    .toggle-button {
+      left: 250px; /* Adjust the button position when the sidebar is visible */
+      transform: translateX(-100%);
     }
-    h5{
-        text-align: center;
-    }
-    @media only screen and (max-width: 768px) {
-        .sidebar {
-          width: 100%;
-          max-width: none;
-        }
-      }
+  }
+
+  span {
+    font-size: 17px;
+    margin-left: 10px;
+  }
+
+  li {
+    margin-top: 20px;
+  }
+
+  h5 {
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 768px) {
+    max-width: 100%;
+  }
 }

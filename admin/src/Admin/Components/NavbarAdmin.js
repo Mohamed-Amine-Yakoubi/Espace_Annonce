@@ -1,44 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { BiLogOut } from "react-icons/bi";
+import Dropdown from "react-bootstrap/Dropdown";
+import { FaUserCog } from "react-icons/fa";
 export const NavbarAdmin = () => {
+  const [, setCookie, removeCookie] = useCookies("access_token");
+  const [user, setUser] = useState([]);
+  const userID = localStorage.getItem("userID");
+  useEffect(() => {
+    if (userID) {
+      axios
+        .get(`http://localhost:3000/project_announcement/GetUserById/${userID}`)
+        .then((res) => {
+          setUser(res.data.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching user:", error);
+        });
+    }
+  }, [userID]);
+  const handleLogout = () => {
+    window.localStorage.removeItem("userID");
+    window.localStorage.removeItem("userRole");
+    setCookie("access_token", "", { path: "/" });
+
+    removeCookie("access_token");
+
+    window.location.reload(false);
+  };
+
   return (
-    <nav className="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-3">
+    <nav className="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-5 d-flex justify-content-between">
       <div className="flex-row d-flex">
-        <button
-          type="button"
-          className="navbar-toggler mr-2 "
-          data-toggle="offcanvas"
-          title="Toggle responsive left sidebar"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <Link
-          className="navbar-brand"
-          href="#"
-          title="Free Bootstrap 4 Admin Template"
-        >
-          Record Book
-        </Link>
+    
+        <Link className="navbar-brand mx-3">Big Sale</Link>
       </div>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#collapsingNavbar"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="navbar-collapse collapse" id="collapsingNavbar">
-        <ul className="navbar-nav">
-          
-          <li className="nav-item">
-            <Link className="nav-link waves-effect waves-light text-white">
-              <i className="fas fa-align-justify"></i>
+      <div className="   mx-5">
+        <ul className="d-flex align-items-center" >
+          <li className="nav-item  ">
+            <Dropdown>
+              <Dropdown.Toggle
+                id="dropdown-basic"
+                style={{ backgroundColor: "transparent", border: "none" }}
+              >
+                <FaUserCog
+                  className="iconOption mt-3"
+                  style={{
+                    backgroundColor: "transparent",
+                    fontSize: "19px",
+                    color: "white",
+                  }}
+                />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item>
+                  <button
+                    className="nav-link text-secondary" 
+                    onClick={handleLogout}
+                  >
+                    <BiLogOut /> <span className="">Logout</span>
+                  </button>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </li>
+          <li className=" mt-3">
+            <Link className="nav-link text-white " >
+              {user.map((item) => (
+                <h5 key={item._id} style={{fontSize:"15px"}}>
+                  {item.User_name}  
+                </h5>
+              ))}
             </Link>
           </li>
         </ul>
       </div>
+ 
     </nav>
   );
 };

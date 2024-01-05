@@ -1,18 +1,28 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { IoMdChatbubbles } from "react-icons/io";
 
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import "../Scss/AdsDetails.scss";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidCategoryAlt } from "react-icons/bi";
-import { FaPhoneAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaTrashAlt, FaPen } from "react-icons/fa";
+import { useCookies } from "react-cookie";
+import toast, { Toaster } from "react-hot-toast";
+
+/********************************** */
 export const AdsDetails = () => {
+  const IDuser = localStorage.getItem("userID");
   const [ads, setAds] = useState([]);
   const [user, setUser] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [cookies] = useCookies(["access_token"]);
+
+
+  const navigate = useNavigate();
   let { id } = useParams();
 
   useEffect(() => {
@@ -110,9 +120,37 @@ export const AdsDetails = () => {
   const handleshowphone = () => {
     setIsVisible(!isVisible);
   };
+
+  const handleDeleteProduct = async (productID) => {
+    try {
+      await axios.delete(
+        `http://localhost:3000/project_announcement/DeleteProduct/${productID}`,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+        }
+      );
+  
+      toast.success("Your ad has been successfully removed");
+
+       
+    
+     
+    } catch (error) {
+      console.error(error);
+    }
+    setTimeout(() => {
+      navigate("/ClientAnnonce");
+    }, 2000);
+  };
   /************************************************************************************ */
   return (
     <div>
+      
+      <Toaster />
+ 
       <div className="container-fluid mt-5 mb-5 d-flex justify-content-space-between AdsDetails">
         <div className="image-gallery-container  mx-5   ">
           <ImageGallery
@@ -126,29 +164,55 @@ export const AdsDetails = () => {
         </div>
         {ads.map((e, i) => (
           <div className="AdsContent container" key={i}>
-            {user.map((e, index) => (
+            {user.map((user, index) => (
               <div className="user-contact " key={index}>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex align-items-center pt-5 ps-5">
                     <FaUserCircle className="icon" />
                     <p className="mt-3 mx-2">
-                      {e.User_name} {e.User_firstname}
+                      {user.User_name} {user.User_firstname}
                     </p>
                   </div>
                   <div className="d-flex align-items-center pt-5 ps-5">
-                    {!isVisible && (
-                      <button className="btn  mx-5" onClick={handleshowphone}>
-                        <FaPhoneAlt /> show number
-                      </button>
-                    )}
-                    {isVisible && (
-                      <p className="mt-3 mx-5">
-                       
-                        +216 {e.User_phone}
-                      </p>
-                    )}
+                    <div>
+                      <div>
+                        <Link className="btn mb-3 mx-5" to="/ChatClients">
+                          <IoMdChatbubbles /> chat with the seller
+                        </Link>
+                      </div>
+                      <div>
+                        {!isVisible && (
+                          <button
+                            className="btn  mx-5 btnCall"
+                            onClick={handleshowphone}
+                          >
+                            <FaPhoneAlt /> show number
+                          </button>
+                        )}
+                        {isVisible && (
+                          <p className="mt-3 mx-5">+216 {user.User_phone}</p>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
+                {e.createdBy === IDuser ? (
+                  <div className="ps-5">
+                    <button className="btn btn-danger mx-1">
+                      <FaTrashAlt
+                        onClick={() => {
+                          handleDeleteProduct(e._id);
+                        }}
+                      />
+                    </button>
+                    <Link
+                      className="btn btn-success mx-1"
+                      to={`/ProductUpdate/${e._id}`}
+                    >
+                      <FaPen />
+                    </Link>
+                  </div>
+                ) : null}
               </div>
             ))}
             <h3>{e.Product_Name}</h3>

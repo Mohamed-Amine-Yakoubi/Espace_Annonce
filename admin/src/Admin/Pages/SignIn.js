@@ -29,7 +29,7 @@ export const SignIn = () => {
         window.localStorage.setItem("userID", res.data.user._id);
         window.localStorage.setItem("userRole", res.data.user.role);
 
-        navigate("/AdminApp");
+        navigate("/UsersManagement");
         window.location.reload(false);
       })
       .catch((error) => {

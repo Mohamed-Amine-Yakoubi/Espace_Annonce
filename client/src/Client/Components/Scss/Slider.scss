@@ -1,0 +1,32 @@
+.slider{
+
+background-color: white;
+display: flex;
+align-items: center;
+height: 80px;
+
+.slider-items {
+width: 80%;
+  img {
+    width: 32px;
+  }
+  h5{
+    margin-top: 10px;
+    margin-left: 10px;
+
+    font-size: 13px;
+  }
+  .items{
+    width: 20px;
+    margin-left: 502px;
+  }
+  .link-no-decoration{
+    text-decoration: none;
+    color:rgb(77, 77, 77);
+  }
+  .slick-prev:before,
+.slick-next:before {
+    color:rgb(77, 77, 77) !important;
+}
+}
+}

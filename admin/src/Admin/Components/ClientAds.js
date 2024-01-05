@@ -92,12 +92,16 @@ export const ClientAds = () => {
   const handleSearch = (searchTerm) => {
     setFilter(searchTerm);
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US");
+  };
   return (
     <div>
       <table className="table container">
         <thead style={{ backgroundColor: "dark", color: "white" }}>
           <tr>
-            <td colSpan={6}>
+            <td colSpan={8}>
               <div className="d-flex justify-content-between">
                 <div className="mt-2">Clients</div>
                 <div>
@@ -114,13 +118,15 @@ export const ClientAds = () => {
 
           <td>Price</td>
           <td>category</td>
+          <td>Date</td>
+          <td>State</td>
           <td></td>
         </tr>
         <tbody>
           {" "}
           {paginatedData.length === 0 ? (
             <tr className="tabletitle">
-              <td colSpan={6} className="text-center">This customer has no ads</td>
+              <td colSpan={8} className="text-center">This customer has no ads</td>
             </tr>
           ) : (
             paginatedData.map((e, i) => (
@@ -138,6 +144,9 @@ export const ClientAds = () => {
 
                 <td> {e.Product_Price} </td>
                 <td> {e.category} </td>
+                <td>{formatDate(e.createdAt)}</td>
+                <td style={{ color: e.state === "approved" ? "green" : e.state==="pending"?"#ff9966" : "red"}}>{e.state}</td>
+
                 <td className="d-flex justify-content-center ">
                   <button className="btn btn-danger mx-2">
                     <MdDelete onClick={() => handleDelete(e._id)} />

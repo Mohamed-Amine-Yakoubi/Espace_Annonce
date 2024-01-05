@@ -33,13 +33,18 @@ const Product_Shema = new Schema({
   },
   Product_Category:{
     type:mongoose.Schema.ObjectId,
-    ref:categorie,
+    ref:'categorie',
     required:[true,"product must be belong to category"]
   },
   createdBy: {
     type: mongoose.Schema.ObjectId,
     ref: 'users', // Reference to the User model
     required: true,
+  }
+  ,state:{
+    type:String,
+    enum: ['pending', 'approved', 'rejected'],
+    default:"pending",
   }
 },{
   timestamps:true,

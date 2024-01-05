@@ -1,10 +1,9 @@
 import axios from "axios";
 
 import React, { useEffect, useState } from "react";
-import { FaLocationDot } from "react-icons/fa6";
-import Card from "react-bootstrap/Card";
-import { BiSolidCategoryAlt } from "react-icons/bi";
+
 import { Link } from "react-router-dom";
+import { CardProduct } from "../Components/CardProduct";
 export const ClientAnnonce = () => {
   const [productUser, setProductUser] = useState("");
   const userID = localStorage.getItem("userID");
@@ -63,8 +62,7 @@ export const ClientAnnonce = () => {
     };
 
     fetchData();
-  }, [userID]);
-  console.log(productUser);
+  }, [userID]); 
   return (
     <div className="mt-5  d-flex justify-content-center">
       {productUser &&
@@ -75,41 +73,14 @@ export const ClientAnnonce = () => {
             to={`/AdsDetails/${e._id}`}
           >
             <div className="mx-2">
-              <Card style={{ width: "14rem" }}>
-                {e.Product_Picture.length >= 1 && (
-                  <Card.Img
-                    style={{ height: "220px", objectFit: "cover" }}
-                    variant="top"
-                    src={`http://localhost:3000/${e.Product_Picture[0]}`}
-                    alt={e.Product_Picture[0]}
-                  />
-                )}
-                <Card.Body>
-                  <Card.Title style={{ color: "red", fontWeight: "bold" }}>
-                    {e.Product_Price}DT
-                  </Card.Title>
-                  <Card.Title
-                    style={{
-                      fontSize: "16px",
-                      display: "-webkit-box",
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                      WebkitLineClamp: 2,
-                    
-                    }}
-                  >
-                    {e.Product_Name}
-                  </Card.Title>
-                  <hr />
-                  <Card.Text style={{ opacity: "50%", fontSize: "12px" }}>
-                    <BiSolidCategoryAlt /> {e.category}
-                  </Card.Text>
-                  <Card.Text style={{ opacity: "50%", fontSize: "12px" }}>
-                    <FaLocationDot />{" "}
-                    {`${e.Product_Location} , ${e.displayTime}`}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+              <CardProduct
+                Product_Picture={`http://localhost:3000/${e.Product_Picture[0]}`}
+                Product_Price={e.Product_Price}
+                Product_Name={e.Product_Name}
+                category={e.category}
+                Product_Location={e.Product_Location}
+                displayTime={e.displayTime}
+              />
             </div>
           </Link>
         ))}

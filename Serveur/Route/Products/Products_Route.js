@@ -28,7 +28,8 @@ route.get(
   "/get_specProductByCategory/:categoryId",
   Products_Controllers.Get_Category_Products
 );
-route.put("/UpdateProduct/:id", Products_Controllers.Update_spec_Product);
+route.put("/UpdateProduct/:id",   middleware.Protect, PictureMiddle.array("Product_Picture",5),Products_Controllers.Update_spec_Product);
+route.put("/UpdateStateProduct/:id",   middleware.Protect,middleware.isAdmin,  Products_Controllers.Update_State_Product);
 route.delete(
   "/DeleteProduct/:id",
   middleware.Protect,

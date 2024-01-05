@@ -3,7 +3,6 @@ import { useCookies } from "react-cookie";
 import "./App.scss";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import { AdminApp } from "./Admin/AdminApp.js";
 import { ProtectedRoute } from "./Admin/Components/ProtectedRoute.js";
 import { SideBar } from "./Admin/Components/SideBar.js";
 import { SignIn } from "./Admin/Pages/SignIn.js";
@@ -34,49 +33,34 @@ export const App = () => {
     <Router>
       <Routes>
         <Route path="/SignIn" element={<SignIn />} />
-        {isAuthenticated ? (
-          <Route path="*" element={<AdminApp />} />
-        ) : (
-          <Route path="*" element={<SignIn />} />
-        )}
-
-        {isAuthenticated ? (
-          <Route path="/" element={<AdminApp />} />
-        ) : (
-          <Route path="/" element={<SignIn />} />
-        )}
+    
       </Routes>
       <div className="d-flex">
         {isAuthenticated && (
           <div className="col-auto">
             <NavbarAdmin />
-            <SideBar />
+            <SideBar  />
           </div>
         )}
-        <div className="mt-5 mx-auto content">
+        <div className="mt-5 mx-auto content" style={{paddingTop:"100px"}}>
           <Routes>
             <Route element={<ProtectedRoute role="admin" />}>
-              <Route path="/AdminApp" element={<AdminApp />} />
+              <Route path="*" element={<UsersManagement />} />
+              <Route path="/" element={<UsersManagement />} />
+              <Route path="/UsersManagement" element={<UsersManagement />} />
               <Route
-                path="/AdminApp/UsersManagement"
-                element={<UsersManagement />}
-              />
-              <Route
-                path="/AdminApp/ProductsManagement"
+                path="/ProductsManagement"
                 element={<ProductsManagement />}
               />
               <Route
-                path="/AdminApp/CategoryManagement"
+                path="/CategoryManagement"
                 element={<CategoryManagement />}
               />
               <Route
-                path="/AdminApp/UsersManagement/clientAds/:id"
+                path="/UsersManagement/clientAds/:id"
                 element={<ClientAds />}
               />
-              <Route
-                path="/AdsDetails/:id"
-                element={<AdsDetails />}
-              />
+              <Route path="/AdsDetails/:id" element={<AdsDetails />} />
             </Route>
           </Routes>
         </div>

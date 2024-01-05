@@ -1,87 +1,43 @@
-import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { LuPackageOpen } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
-import { BiLogOut } from "react-icons/bi";
 import "../Scss/SideBar.scss";
+import { HiOutlineBars3 } from "react-icons/hi2";
 
-import axios from "axios";
+export const SideBar = () => {
+ const [isVisible, setIsVisible] = useState(true);
 
-/*********************************** */
-export const SideBar = (onSelect) => {
-  const [, setCookie, removeCookie] = useCookies("access_token");
-  const [user, setUser] = useState([]);
-  const userID = localStorage.getItem("userID");
-  useEffect(() => {
-    if (userID) {
-      axios
-        .get(`http://localhost:3000/project_announcement/GetUserById/${userID}`)
-        .then((res) => {
-          setUser(res.data.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching user:", error);
-        });
-    }
-  }, [userID]);
-  const handleLogout = () => {
-    window.localStorage.removeItem("userID");
-    window.localStorage.removeItem("userRole");
-    setCookie("access_token", "", { path: "/" });
-
-    removeCookie("access_token");
- 
-    window.location.reload(false);
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
   };
-
   return (
-    <div className=" sidebar d-flex flex-column justify-content-space-between   p-4 vh-100 ">
-      <ul className="nav nav-pills flex-column p-0 m-0">
-        <li className="nav-item mb-2 mt-5">
-          <Link className="nav-link text-secondary">
-            {user.map((item) => (
-              <h5 key={item._id}>
-                {item.User_name} {item.User_firstname}
-              </h5>
-            ))}
-          </Link>
-        </li>
-        <li className="nav-item mb-2  ">
-          <Link
-            to="/AdminApp/UsersManagement"
-            className="nav-link text-secondary"
-          >
+    <div className={`sidebar  ${isVisible ? "visible" : "hidden"}`}>
+ <button onClick={toggleVisibility} className={`toggle-button border-0 btn ${isVisible ? "" : "moved"} `}>
+        <HiOutlineBars3 style={{fontSize:"30px"}}/>
+      </button>
+    {isVisible && (
+    <ul className="nav nav-pills flex-column   pt-5">
+        <li className="nav-item mb-2">
+          <Link to="/UsersManagement" className="nav-link text-secondary">
             <FaUser />
             <span className="">Users Management</span>
           </Link>
         </li>
-
-        <li className="nav-item mb-2 ">
-          <Link
-            className="nav-link text-secondary"
-            to="/AdminApp/ProductsManagement"
-          >
+        <li className="nav-item mb-2">
+          <Link to="/ProductsManagement" className="nav-link text-secondary">
             <LuPackageOpen />
             <span className="">Products Management</span>
           </Link>
         </li>
         <li className="nav-item mb-2">
-          <Link
-            className="nav-link text-secondary"
-            to="/AdminApp/CategoryManagement"
-          >
+          <Link to="/CategoryManagement" className="nav-link text-secondary">
             <MdCategory />
             <span className="">Categories Management</span>
           </Link>
         </li>
-        <li className="nav-item mb-2">
-          <button className="nav-link text-secondary" onClick={handleLogout}>
-            <BiLogOut /> <span className="">Logout</span>
-          </button>
-        </li>
-      </ul>
+      </ul>)}
     </div>
   );
 };
