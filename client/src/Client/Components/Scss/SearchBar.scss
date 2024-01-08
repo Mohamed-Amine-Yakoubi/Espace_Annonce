@@ -1,0 +1,41 @@
+/* SearchBar.css */
+
+.SearchBar {
+    width: 100%;
+
+    .searchbar {
+        width: 100%;
+        max-width: 700px;  
+        padding: 8px;
+        box-sizing: border-box;
+        height: 40px;
+        border-radius: 50px;
+        border: none;
+        background-color: #f0f0f0;
+        padding-left: 30px;
+    }
+    .input-container {
+        position: relative;
+      }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    .search-icon {
+        position: absolute;
+        left: 20px; // Adjust the left position as needed
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    @media (min-width: 987px) {
+       
+        .searchbar {
+            width: 500px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

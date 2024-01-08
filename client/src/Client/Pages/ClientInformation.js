@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FormInput } from "../Components/FormInput";
 import { CostumButton } from "../Components/CostumButton";
 import { useCookies } from "react-cookie";
-
+import { FaUserCircle } from "react-icons/fa";
 export const ClientInformation = () => {
   const [error, setError] = useState("");
 
@@ -115,10 +115,11 @@ export const ClientInformation = () => {
  
 
   return (
-    <div className="Sign">
+    <div className="Sign ">
       <div>
-        <div className="wrapper">
-          <h1>Create your Account</h1>
+        <div className="wrapper pb-5">
+        <FaUserCircle className="icon" style={{color:" #dfe9f5" ,fontSize:"80px"}}/>
+          <h1>Update your Account</h1>
           {error ? (
             <p className="alert alert-danger text-center">{error}</p>
           ) : null}

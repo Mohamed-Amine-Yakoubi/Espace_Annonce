@@ -150,13 +150,13 @@ export const ProductsManagement = () => {
                     />
                   )}
                 </td>
-                <td>{e.Product_Name}</td>
+                <td ><div style={{ overflow: "hidden",  textOverflow:" ellipsis", whiteSpace: "nowrap", width: "150px" }}>{e.Product_Name}</div></td>
 
                 <td>{e.category}</td>
                 <td>{e.Product_Price}</td>
                 <td>{formatDate(e.Product_Date)}</td>
             
-                <td style={{ color: e.state === "approved" ? "green" : e.state==="pending"?"#ff9966" : "red"}}>{e.state}</td>
+                <td style={{ color: e.state === "Approved" ? "green" : e.state==="pending"?"#ff9966" : "red"}}>{e.state}</td>
 
                 <td className=" d-flex  ">
                   <button className="btn btn-danger  mx-1 ">

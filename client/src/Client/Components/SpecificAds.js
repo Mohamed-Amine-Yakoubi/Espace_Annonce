@@ -70,12 +70,12 @@ export const SpecificAds = () => {
     fetchData();
   }, [Cat_Name, userID]);
   return (
-    <div>
+    <div >
       <div className="  HomePage">
         <div className="SliderCategory">
           <Slidercategory />
         </div>
-        <div className="container ">
+        <div className="container d-flex justify-content-center">
           <div className="mt-5  d-flex jusitfy-content-center  flex-wrap ">
             {productUser &&
               productUser.map((product, index) => (

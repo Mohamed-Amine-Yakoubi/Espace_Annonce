@@ -1,6 +1,6 @@
 .HomePage {
+
  
-  
     .BannerImg {
       width: 100%;
       max-width: 100%;
@@ -9,18 +9,17 @@
  
  
     }
-  
-
-  @media (max-width: 768px) {
-    .BannerImg {
-      /* Adjust styles for smaller screens */
+    .slick-prev:before,
+    .slick-next:before {
+      color: rgb(77, 77, 77) !important;
     }
-  }
 
+ 
   h1{
     margin-top: 50px;
     color:rgb(77, 77, 77);
-    font-size: 15px;}
+    font-size: 15px;
+  font-weight: bold;}
 
  
     

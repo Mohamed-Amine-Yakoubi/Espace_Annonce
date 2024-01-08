@@ -3,7 +3,7 @@ import { Home } from "./Client/Pages/Home.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SignIn } from "./Client/Pages/SignIn.js";
  
-import "./App.scss";
+import'./App.scss';
 import { SingUp } from "./Client/Pages/SingUp.js";
 import { AddAnnonce } from "./Client/Pages/AddAnnonce.js";
  
@@ -18,6 +18,7 @@ import { AdsDetails } from "./Client/Pages/AdsDetails.js";
 import { SpecificAds } from "./Client/Components/SpecificAds.js";
  
 import { ProductUpdate } from "./Client/Pages/ProductUpdate.js";
+import { AllAds } from "./Client/Pages/AllAds.js";
  
  
  
@@ -33,6 +34,7 @@ export const App = () => {
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SingUp />} />
         <Route path="/AdsDetails/:id" element={<AdsDetails />} />
+        <Route path="/AllAds/:categoryName" element={<AllAds />} />
         <Route path="/SpecificAds/:Cat_Name" element={<SpecificAds />} />
         <Route element={<ProtectedRoute role="client" />}>
           <Route path="/AddAnnonce" element={<AddAnnonce />} />

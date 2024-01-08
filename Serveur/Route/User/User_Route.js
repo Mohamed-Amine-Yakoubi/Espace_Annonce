@@ -4,7 +4,7 @@ const UserControllers = require("../../Controllers/User/User_controller");
 const middleware=require("../../Middleware/auth");
 route.post("/SignUp", UserControllers.SignUp);
 route.post("/SignIn", UserControllers.SingIn);
-route.get("/GetAllUsers",middleware.Protect,middleware.isAdmin, UserControllers.GetAllUser);
+route.get("/GetAllUsers",middleware.Protect, UserControllers.GetAllUser);
 route.get("/GetUserById/:id", UserControllers.GetUserById);
 route.put("/UpdateAccount/:id", middleware.Protect,UserControllers.Update_spec_User);
 route.put("/UpdateAccountPassword/:id", middleware.Protect,UserControllers.Update_spec_UserPassword);

@@ -73,13 +73,45 @@ export const Home = () => {
   const sortedProducts = [...productUser].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
+
   const sliderSettings = {
     infinite: false,
     slidesToShow: 5,
     slidesToScroll: 1,
+
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+  const getCategoryLink = (categoryName) => {
+    return `/AllAds/${categoryName}`;
   };
   return (
-    <div className="  HomePage">
+    <div className="HomePage">
       <div className="Banner">
         <img src={Banner} className="BannerImg" alt="Banner" />
       </div>
@@ -87,48 +119,91 @@ export const Home = () => {
       <div className="SliderCategory">
         <Slidercategory />
       </div>
-      {sortedProducts.map((state, i) =>
-        state.state === "approved" ? (
-          <div className="container " key={i}>
-            <div className="d-flex justify-content-between">
-              <h1>Recent product</h1>
-              <Link to={`/SpecificAds`} className="link-no-decoration">
-                <h1>
-                  Display all
-                  <FaLongArrowAltRight />
-                </h1>
-              </Link>
-            </div>
-            <div className="mt-5   ">
-              <Slider {...sliderSettings}>
-                {sortedProducts &&
-                  sortedProducts
-                    .filter((product) => product.state === "approved")
-                    .map((product, index) => (
-                      <Link
-                        key={index}
-                        to={`/AdsDetails/${product._id}`}
-                        className="link-no-decoration"
-                      >
-                        <div className="mx-2">
-                          <CardProduct
-                            Product_Picture={`http://localhost:3000/${product.Product_Picture[0]}`}
-                            Product_Price={product.Product_Price}
-                            Product_Name={product.Product_Name}
-                            category={product.category}
-                            Product_Location={product.Product_Location}
-                            displayTime={product.displayTime}
-                            style={{ textDecoration: "none !important" }}
-                          />{" "}
-                        </div>
-                      </Link>
-                    ))}
-              </Slider>
-            </div>
-            {/* ****************************************** */}
-          </div>
-        ) : null
-      )}
+
+      <div className="container ">
+        <div className="d-flex justify-content-between">
+          <h1>Recent product</h1>
+          <Link to={getCategoryLink("recent")} className="link-no-decoration">
+            <h1>
+              Display all
+              <FaLongArrowAltRight />
+            </h1>
+          </Link>
+        </div>
+        <div className="    ">
+          <Slider {...sliderSettings}>
+            {sortedProducts &&
+              sortedProducts
+                .filter((product) => product.state === "Approved")
+                .map((product, index) => (
+                  <Link
+                    key={index}
+                    to={`/AdsDetails/${product._id}`}
+                    className="link-no-decoration "
+                  >
+                    <div
+                      className="d-flex align-items-center justify-content-center "
+                      style={{ height: "410px" }}
+                    >
+                      <CardProduct
+                        Product_Picture={`http://localhost:3000/${product.Product_Picture[0]}`}
+                        Product_Price={product.Product_Price}
+                        Product_Name={product.Product_Name}
+                        category={product.category}
+                        Product_Location={product.Product_Location}
+                        displayTime={product.displayTime}
+                        style={{
+                          textDecoration: "none !important",
+                        }}
+                      />
+                    </div>
+                  </Link>
+                ))}
+          </Slider>
+        </div>
+      </div>
+      <div className="container ">
+        <div className="d-flex justify-content-between">
+          <h1>vehicules</h1>
+          <Link to={getCategoryLink("Vehicles")} className="link-no-decoration">
+            <h1 >
+              Display all
+              <FaLongArrowAltRight />
+            </h1>
+          </Link>
+        </div>
+        <div className="   ">
+          <Slider {...sliderSettings}>
+            {sortedProducts &&
+              sortedProducts
+                .filter((product) => product.state === "Approved")
+                .map((product, index) => (
+                  <Link
+                    key={index}
+                    to={`/AdsDetails/${product._id}`}
+                    className="link-no-decoration "
+                  >
+                    <div
+                      className="d-flex align-items-center justify-content-center "
+                      style={{ height: "410px" }}
+                    >
+                      <CardProduct
+                        Product_Picture={`http://localhost:3000/${product.Product_Picture[0]}`}
+                        Product_Price={product.Product_Price}
+                        Product_Name={product.Product_Name}
+                        category={product.category}
+                        Product_Location={product.Product_Location}
+                        displayTime={product.displayTime}
+                        style={{
+                          textDecoration: "none !important",
+                        }}
+                      />
+                    </div>
+                  </Link>
+                ))}
+          </Slider>
+        </div>
+      </div>
     </div>
   );
 };

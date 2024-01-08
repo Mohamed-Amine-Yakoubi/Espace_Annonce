@@ -42,7 +42,7 @@ export const UsersManagement = () => {
 
     fetchData();
   }, [cookies.access_token]);
-
+   
   const handleDelete = async (userId) => {
     try {
       await axios.delete(

@@ -145,7 +145,7 @@ export const ClientAds = () => {
                 <td> {e.Product_Price} </td>
                 <td> {e.category} </td>
                 <td>{formatDate(e.createdAt)}</td>
-                <td style={{ color: e.state === "approved" ? "green" : e.state==="pending"?"#ff9966" : "red"}}>{e.state}</td>
+                <td style={{ color: e.state === "Approved" ? "green" : e.state==="pending"?"#ff9966" : "red"}}>{e.state}</td>
 
                 <td className="d-flex justify-content-center ">
                   <button className="btn btn-danger mx-2">

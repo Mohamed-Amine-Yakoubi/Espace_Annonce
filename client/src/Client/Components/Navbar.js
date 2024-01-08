@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import logo from "../images/logo192.png";
 import { Link } from "react-router-dom";
@@ -8,10 +9,10 @@ import { SearchBar } from "./SearchBar";
 import Dropdown from "react-bootstrap/Dropdown";
 import { MdAccountCircle } from "react-icons/md";
 import { BiSolidPackage } from "react-icons/bi";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { IoMdLogOut } from "react-icons/io";
+import { IoMdAddCircleOutline, IoMdLogOut } from "react-icons/io";
 import { FaUserCog } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
+
 export const Navbar = () => {
   const [cookies, setCookies] = useCookies("access_token");
 
@@ -24,10 +25,10 @@ export const Navbar = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
         <Link
           className="navbar-toggler"
-          type="Link"
+          to="#"
           data-bs-toggle="collapse"
           data-bs-target="#navbarText"
           aria-controls="navbarText"
@@ -37,17 +38,17 @@ export const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </Link>
 
-        <div className="container-fluid d-flex justify-content-between ">
-          <div>
-            <Link to="/Home">
-              <img className="logo-navbar" src={logo} alt={logo} />
-            </Link>
-          </div>
-          <div>
-            <SearchBar />
-          </div>
-          <div>
-            <ul className="navbar-nav  ">
+        <div className="container-fluid">
+          <div className="collapse navbar-collapse" id="navbarText">
+            <div>
+              <Link to="/Home">
+                <img className="logo-navbar" src={logo} alt={logo} />
+              </Link>
+            </div>
+            <div className="mx-auto">
+              <SearchBar />
+            </div>
+            <ul className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Link to="/AddAnnonce" className="nav-link">
                   <IoMdAddCircleOutline className="icon" />
@@ -63,7 +64,7 @@ export const Navbar = () => {
                       <Dropdown.Menu>
                         <Dropdown.Item>
                           <Link className="nav-link" to="/ClientInformation">
-                          <FaUserCog className="icon " />
+                            <FaUserCog className="icon " />
                             <span className="mx-2">My information</span>
                           </Link>
                         </Dropdown.Item>
@@ -75,11 +76,11 @@ export const Navbar = () => {
                         </Dropdown.Item>
                         <Dropdown.Item>
                           <Link className="nav-link" to="/ClientContact">
-                          <TiMessages className="icon " />
+                            <TiMessages className="icon " />
                             <span className="mx-2">My messages</span>
                           </Link>
                         </Dropdown.Item>
-                        <hr className="m-0"/>
+                        <hr className="m-0" />
                         <Dropdown.Item>
                           <Link className="nav-link" onClick={removeCookies}>
                             <IoMdLogOut className="icon " />

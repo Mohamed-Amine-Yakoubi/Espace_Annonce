@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoMdChatbubbles } from "react-icons/io";
 
@@ -25,8 +25,8 @@ export const AdsDetails = () => {
   const navigate = useNavigate();
   let { id } = useParams();
 
-  useEffect(() => {
-    const fetchData = async () => {
+ 
+    const fetchData = useCallback(async () => {
       try {
         const res = await axios.get(
           `http://localhost:3000/project_announcement/get_specProductById/${id}`
@@ -78,10 +78,11 @@ export const AdsDetails = () => {
       } catch (error) {
         console.error(error);
       }
-    };
+    },[id])
 
-    fetchData();
-  }, [id]);
+    useEffect(() => {
+      fetchData();
+    }, [fetchData]);
 
   const galleryItems = ads.flatMap((ad) =>
     ad.Product_Picture.map((picture, index) => ({
@@ -122,6 +123,7 @@ export const AdsDetails = () => {
   };
 
   const handleDeleteProduct = async (productID) => {
+
     try {
       await axios.delete(
         `http://localhost:3000/project_announcement/DeleteProduct/${productID}`,
@@ -134,13 +136,11 @@ export const AdsDetails = () => {
       );
   
       toast.success("Your ad has been successfully removed");
-
-       
-    
-     
+ 
     } catch (error) {
       console.error(error);
     }
+   
     setTimeout(() => {
       navigate("/ClientAnnonce");
     }, 2000);

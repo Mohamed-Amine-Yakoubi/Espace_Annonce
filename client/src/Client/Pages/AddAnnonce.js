@@ -4,14 +4,15 @@ import "../Scss/AddAnnonce.scss";
 import { Costumdroplist } from "../Components/Costumdroplist";
 import { CostumButton } from "../Components/CostumButton";
 import axios from "axios";
+import TunisiaRegions from "./TunisiaRegions.js";
 import { useCookies } from "react-cookie";
 import { InputFiles } from "../Components/InputFiles";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 export const AddAnnonce = () => {
   const id_user = localStorage.getItem("userID");
   const [cookies] = useCookies(["access_token"]);
-
- 
+  const navigate = useNavigate();
   const apiUrl = "http://localhost:3000/project_announcement/getAllCategories";
 
   const [product, setProduct] = useState({
@@ -24,7 +25,9 @@ export const AddAnnonce = () => {
     createdBy: id_user,
   });
   /************************************** */
-
+  const handleSelectedRegion = (selectedRegion) => {
+    setProduct({ ...product, Product_Location: selectedRegion || "" });
+  };
   const handleSelectedCategoryId = (selectedCategoryId) => {
     setProduct({ ...product, Product_Category: selectedCategoryId || "" });
   };
@@ -64,13 +67,15 @@ export const AddAnnonce = () => {
         }
       );
       if (response) {
-        toast.success("ads added successfully!")
-      } 
+        toast.success("ads added successfully!");
+      }
     } catch (error) {
-   
-        toast.error("ads failed to add ")
- 
+      toast.error("ads failed to add ");
     }
+    setTimeout(() => {
+      navigate("/ClientAnnonce");
+    }, 1500)
+ 
   };
 
   /********************************** */
@@ -95,7 +100,6 @@ export const AddAnnonce = () => {
             <label className="label  ">Category*</label>
 
             <Costumdroplist
-  
               apiUrl={apiUrl}
               labelKey="Cat_Name"
               idKey="_id"
@@ -104,7 +108,7 @@ export const AddAnnonce = () => {
             />
           </div>
           <div className="inputfield">
-            <label className="label  ">Description ad *</label>
+            <label className="label   ">Description ad *</label>
             <FormInput
               className="Forminput  "
               type="text"
@@ -123,15 +127,24 @@ export const AddAnnonce = () => {
               onChange={handlechangevalue}
             />
           </div>
-          <div className="inputfield">
-            <label className="label  ">Location? *</label>
-            <FormInput
-              className="Forminput  "
-              type="text"
-              name="Product_Location"
-              placeholder="Enter your Location"
-              onChange={handlechangevalue}
-            />
+
+          <div className="costumdroplist">
+            <div className="inputfield select-container ">
+              <label className="label">Location? *</label>
+              <select
+                value={product.Product_Location} // Set the value attribute to the selected region
+                onChange={(e) => handleSelectedRegion(e.target.value)}
+              >
+                <option disabled value="" selected>
+                  region
+                </option>
+                {TunisiaRegions.map((e) => (
+                  <option key={e.id} value={e.name}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className="inputfield">
             <label className="label  ">Picture *</label>

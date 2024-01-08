@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "./Scss/SearchBar.scss";
+import { FaSearch } from "react-icons/fa";
 
 export const SearchBar = () => {
   const [searchText, setSearchText] = useState("");
@@ -15,8 +17,9 @@ export const SearchBar = () => {
           placeholder="Search.."
           value={searchText}
           onChange={handleInputChange}
+          
         />
-        <i className="bi bi-search"></i>
+             <FaSearch className="search-icon" />
       </div>
     </div>
   );

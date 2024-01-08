@@ -1,0 +1,58 @@
+.AllAds {
+  .link-no-decoration {
+    text-decoration: none;
+  }
+  .BannerImg {
+    width: 100%;
+    max-width: 100%;
+    height: auto; // This ensures that the aspect ratio is maintained
+    display: block; // Removes any extra space below the image
+  }
+  .filter-container {
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    max-width: 290px;
+    height: 100%;
+    padding: 50px 20px 50px 20px;
+
+
+    .Searchbar { 
+      width: 100%;
+
+      .input-container {
+        position: relative;
+      }
+      .searchbar{
+        width: 100%;
+        max-width: 350px;
+   
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .search-icon {
+        position: absolute;
+        top: 40%;
+        right: 10px;
+        transform: translateY(-50%);
+      }
+    }
+ Label{
+  font-weight: bold;
+ 
+ }
+
+
+  }
+  @media (max-width: 768px) {
+    .d-flex {
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center items horizontally */
+    }
+  }
+}

@@ -25,15 +25,16 @@ export const SignIn = () => {
     axios
       .post("http://localhost:3000/project_announcement/SignIn", user)
       .then((res) => {
-        setCookies("access_token", res.data.token);
+    
         window.localStorage.setItem("userID", res.data.user._id);
         window.localStorage.setItem("userRole", res.data.user.role);
-
+        setCookies("access_token", res.data.token);
         navigate("/UsersManagement");
         window.location.reload(false);
-      })
-      .catch((error) => {
-        setError(error.response.data.message);
+     
+      }).catch((error) => {
+        console.error("Error during sign-in:", error);
+        setError(error.response?.data?.message || "An error occurred during sign-in.");
       });
   };
   return (
