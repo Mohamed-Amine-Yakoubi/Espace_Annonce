@@ -6,8 +6,9 @@ import { Slidercategory } from "../Components/Slider";
 import { CardProduct } from "../Components/CardProduct";
 import "../Scss/AllAds.scss";
 import TunisiaRegions from "./TunisiaRegions.js";
+import EmptyImg from "../images/empty.png";
 import { FormInput } from "../Components/FormInput.js";
-import { Pagination } from 'react-bootstrap';
+import { Pagination } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 export const AllAds = () => {
   const { categoryName } = useParams();
@@ -136,7 +137,8 @@ export const AllAds = () => {
           const productDate = new Date(product.createdAt)
             .toISOString()
             .split("T")[0];
-          return productDate >= new Date(dateStart) && productDate <= dateEnd;
+
+          return productDate >= dateStart && productDate <= dateEnd;
         });
         setFilteredAds(filter);
       } else {
@@ -170,9 +172,15 @@ export const AllAds = () => {
   const [itemsPerPage] = useState(8); // Number of items to display per page
 
   // Calculate the indexes for the current page
-  const indexOfLastAd = Math.min(currentPage * itemsPerPage, filteredAds.length);
-  const indexOfFirstAd = Math.min(indexOfLastAd - itemsPerPage, filteredAds.length);
-  
+  const indexOfLastAd = Math.min(
+    currentPage * itemsPerPage,
+    filteredAds.length
+  );
+  const indexOfFirstAd = Math.min(
+    indexOfLastAd - itemsPerPage,
+    filteredAds.length
+  );
+
   const currentAds = filteredAds.slice(indexOfFirstAd, indexOfLastAd);
 
   // Change page
@@ -204,7 +212,7 @@ export const AllAds = () => {
             </div>
             <div className="costumdroplist">
               <div className="inputfield select-container ">
-                <label  className="mt-3 mb-2">Region </label>
+                <label className="mt-3 mb-2">Region </label>
                 <select className="FormInput" onChange={handleRegion}>
                   <option className="FormInput " disabled value="" selected>
                     region
@@ -256,50 +264,76 @@ export const AllAds = () => {
             </div>
           </div>
         </div>
-        <div className="container-fluid d-flex mt-4  ">
-          <div className=" d-flex flex-wrap justify-content-center  ">
-            {currentAds &&
-              currentAds
-                .filter((product) => product.state === "Approved")
-                .map((product, index) => (
-                  <Link
-                    key={index}
-                    to={`/AdsDetails/${product._id}`}
-                    className="link-no-decoration "
-                  >
-                    <div
-                      className="d-flex align-items-center justify-content-center "
-                      style={{ height: "410px" }}
+
+        <div className="container-fluid   mt-4  ">
+          {currentAds && currentAds.length > 0 ? (
+            <div className=" d-flex flex-wrap justify-content-center  ">
+              {currentAds &&
+                currentAds
+                  .filter(
+                    (product) =>
+                      product.state === "Approved" &&
+                      new Date(product.Product_DateExpiration) >= new Date()
+                  )
+                  .map((product, index) => (
+                    <Link
+                      key={index}
+                      to={`/AdsDetails/${product._id}`}
+                      className="link-no-decoration "
                     >
-                      <CardProduct
-                        Product_Picture={`http://localhost:3000/${product.Product_Picture[0]}`}
-                        Product_Price={product.Product_Price}
-                        Product_Name={product.Product_Name}
-                        category={product.categoryAds}
-                        Product_Location={product.Product_Location}
-                        displayTime={product.displayTime}
-                        style={{
-                          textDecoration: "none !important",
-                        }}
-                      />
-                    </div>
-                  </Link>
-                ))}
-                <div className="d-flex justify-content-center mt-4">
-          <Pagination>
-            {[...Array(Math.ceil(filteredAds.length / itemsPerPage))].map((_, index) => (
-              <Pagination.Item
-                key={index + 1}
-                active={index + 1 === currentPage}
-                onClick={() => paginate(index + 1)}
-              >
-                {index + 1}
-              </Pagination.Item>
-            ))}
-          </Pagination>
-        </div>
+                      <div
+                        className="d-flex align-items-center justify-content-center "
+                        style={{ height: "410px" }}
+                      >
+                        <CardProduct
+                          Product_Picture={`http://localhost:3000/${product.Product_Picture[0]}`}
+                          Product_Price={product.Product_Price}
+                          Product_Name={product.Product_Name}
+                          category={product.categoryAds}
+                          Product_Location={product.Product_Location}
+                          displayTime={product.displayTime}
+                          Product_DateExpiration={
+                            product.Product_DateExpiration
+                          }
+                          style={{
+                            textDecoration: "none !important",
+                          }}
+                        />
+                      </div>
+                    </Link>
+                  ))}
+            </div>
+          ) : (
+            <div  className="  mt-5">
+              <div className="d-flex justify-content-center align-items-center">
+                <img src={EmptyImg} style={{ width: "300px" }} alt="img" />
+              </div>
+              <div className="d-flex justify-content-center align-items-center mt-4 ">
+                <h1  style={{fontSize:"15px",fontWeight:"bold"}}>
+                  I'm sorry to hear that you couldn't find the product you were
+                  looking for.
+                </h1>
+              </div>
+            </div>
+          )}
+      
+          <div className="d-flex justify-content-center mt-4">
+           
+            <Pagination>
+              {[...Array(Math.ceil(filteredAds.length / itemsPerPage))].map(
+                (_, index) => (
+                  <Pagination.Item
+                    key={index + 1}
+                    active={index + 1 === currentPage}
+                    onClick={() => paginate(index + 1)}
+                  >
+                    {index + 1}
+                  </Pagination.Item>
+                )
+              )}
+            </Pagination>
           </div>
-          
+ 
         </div>
       </div>
     </div>

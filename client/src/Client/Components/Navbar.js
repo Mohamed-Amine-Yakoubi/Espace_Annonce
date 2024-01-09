@@ -1,8 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import logo from "../images/logo192.png";
-import { Link } from "react-router-dom";
+ 
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import "../Components/Scss/Navbar.scss";
 import { SearchBar } from "./SearchBar";
@@ -15,11 +15,13 @@ import { TiMessages } from "react-icons/ti";
 
 export const Navbar = () => {
   const [cookies, setCookies] = useCookies("access_token");
-
+  const navigate = useNavigate();
   const removeCookies = () => {
     setCookies("access_token", "");
     window.localStorage.removeItem("userID");
     window.localStorage.removeItem("userRole");
+    window.location.reload(false);
+    navigate("/Home");
     window.location.reload(false);
   };
 
@@ -40,9 +42,9 @@ export const Navbar = () => {
 
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarText">
-            <div>
-              <Link to="/Home">
-                <img className="logo-navbar" src={logo} alt={logo} />
+            <div className="mt-2">
+              <Link style={{textDecoration:"none",fontWeight:"bold",color:"#212529"}} to="/Home">
+                <h1 style={{ fontWeight:"bold" ,fontSize:"30px"}}>Big & Sale</h1>
               </Link>
             </div>
             <div className="mx-auto">

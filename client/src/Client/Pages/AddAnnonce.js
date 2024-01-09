@@ -67,7 +67,8 @@ export const AddAnnonce = () => {
         }
       );
       if (response) {
-        toast.success("ads added successfully!");
+        toast.success("your ads added successfully!\nAd generation may take up to 24 hours.");
+ 
       }
     } catch (error) {
       toast.error("ads failed to add ");

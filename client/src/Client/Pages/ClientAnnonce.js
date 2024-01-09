@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import React, { useEffect, useState } from "react";
-
+import EmptyImg from "../images/empty.png";
 import { Link } from "react-router-dom";
 import { CardProduct } from "../Components/CardProduct";
 export const ClientAnnonce = () => {
@@ -62,28 +62,48 @@ export const ClientAnnonce = () => {
     };
 
     fetchData();
-  }, [userID]); 
+  }, [userID]);
   return (
-    <div className="mt-5  d-flex justify-content-center">
-      {productUser &&
-        productUser.map((e, i) => (
-          <Link
-            key={i}
-            style={{ textDecoration: "none" }}
-            to={`/AdsDetails/${e._id}`}
-          >
-            <div className="mx-2">
-              <CardProduct
-                Product_Picture={`http://localhost:3000/${e.Product_Picture[0]}`}
-                Product_Price={e.Product_Price}
-                Product_Name={e.Product_Name}
-                category={e.category}
-                Product_Location={e.Product_Location}
-                displayTime={e.displayTime}
-              />
+    <div
+      className="  d-flex justify-content-center"
+      style={{ marginTop: "70px" }}
+    >
+      {productUser && productUser.length > 0 ? (
+        <div className="d-flex flex-wrap">
+          {productUser &&
+            productUser.map((e, i) => (
+              <Link
+                key={i}
+                style={{ textDecoration: "none" }}
+                to={`/AdsDetails/${e._id}`}
+              >
+                <div className="mx-2">
+                  <CardProduct
+                    Product_Picture={`http://localhost:3000/${e.Product_Picture[0]}`}
+                    Product_Price={e.Product_Price}
+                    Product_Name={e.Product_Name}
+                    category={e.category}
+                    Product_Location={e.Product_Location}
+                    displayTime={e.displayTime}
+                    Product_DateExpiration={e.Product_DateExpiration}
+                  />
+                </div>
+              </Link>
+            ))}
+        </div>
+      ) : (
+        <div  className="  mt-5">
+              <div className="d-flex justify-content-center align-items-center">
+                <img src={EmptyImg} style={{ width: "300px" }} alt="img" />
+              </div>
+              <div className="d-flex justify-content-center align-items-center mt-4 ">
+                <h1  style={{fontSize:"15px",fontWeight:"bold"}}>
+                  I'm sorry to hear that you couldn't find the product you were
+                  looking for.
+                </h1>
+              </div>
             </div>
-          </Link>
-        ))}
+      )}
     </div>
   );
 };

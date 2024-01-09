@@ -33,9 +33,11 @@ export const NavbarAdmin = () => {
 
   return (
     <nav className="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-5 d-flex justify-content-between">
-      <div className="flex-row d-flex">
+      <div className="flex-row d-flex mx-3">
     
-        <Link className="navbar-brand mx-3">Big Sale</Link>
+      <Link style={{textDecoration:"none",fontWeight:"bold",color:"white"}} to="/UsersManagement">
+                <h1 style={{ fontWeight:"bold" ,fontSize:"30px"}}>Big & Sale</h1>
+              </Link>
       </div>
       <div className="   mx-5">
         <ul className="d-flex align-items-center" >

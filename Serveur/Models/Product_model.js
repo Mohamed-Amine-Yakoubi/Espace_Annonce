@@ -27,6 +27,15 @@ const Product_Shema = new Schema({
    get: (val) => moment(val).format('YYYY-MM-DD'),
   
   },
+  Product_DateExpiration: {
+    type: Date,
+    default: function() {
+ 
+      return moment().add(2, 'days');
+    },
+    required: [true, "Product Date Expiration required"],
+    get: (val) => moment(val).format('YYYY-MM-DD'),
+  },
   Product_Picture: {
     type: [String],
     required: [true, "Product pircture required"],

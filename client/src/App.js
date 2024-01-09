@@ -19,6 +19,7 @@ import { SpecificAds } from "./Client/Components/SpecificAds.js";
  
 import { ProductUpdate } from "./Client/Pages/ProductUpdate.js";
 import { AllAds } from "./Client/Pages/AllAds.js";
+import { NotFound } from "./Client/Components/NotFound.js";
  
  
  
@@ -29,7 +30,7 @@ export const App = () => {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SingUp />} />

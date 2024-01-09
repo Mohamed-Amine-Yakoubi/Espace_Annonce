@@ -111,7 +111,7 @@ export const Home = () => {
     return `/AllAds/${categoryName}`;
   };
   return (
-    <div className="HomePage">
+    <div className="HomePage" style={{marginBottom:"150px"}}>
       <div className="Banner">
         <img src={Banner} className="BannerImg" alt="Banner" />
       </div>
@@ -134,7 +134,7 @@ export const Home = () => {
           <Slider {...sliderSettings}>
             {sortedProducts &&
               sortedProducts
-                .filter((product) => product.state === "Approved")
+              .filter((product) =>( product.state === "Approved" && new Date(product.Product_DateExpiration) >= new Date()))
                 .map((product, index) => (
                   <Link
                     key={index}
@@ -176,7 +176,7 @@ export const Home = () => {
           <Slider {...sliderSettings}>
             {sortedProducts &&
               sortedProducts
-                .filter((product) => product.state === "Approved")
+                .filter((product) =>( product.state === "Approved" && new Date(product.Product_DateExpiration) >= new Date()))
                 .map((product, index) => (
                   <Link
                     key={index}
@@ -203,6 +203,101 @@ export const Home = () => {
                 ))}
           </Slider>
         </div>
+      </div>
+      <div className="container ">
+        <div className="d-flex justify-content-between">
+          <h1>Clothing</h1>
+          <Link to={getCategoryLink("Vehicles")} className="link-no-decoration">
+            <h1 >
+              Display all
+              <FaLongArrowAltRight />
+            </h1>
+          </Link>
+        </div>
+        <div className="   ">
+          <Slider {...sliderSettings}>
+            {sortedProducts &&
+              sortedProducts
+                .filter((product) =>( product.state === "Approved" && new Date(product.Product_DateExpiration) >= new Date()))
+                .map((product, index) => (
+                  <Link
+                    key={index}
+                    to={`/AdsDetails/${product._id}`}
+                    className="link-no-decoration "
+                  >
+                    <div
+                      className="d-flex align-items-center justify-content-center "
+                      style={{ height: "410px" }}
+                    >
+                      <CardProduct
+                        Product_Picture={`http://localhost:3000/${product.Product_Picture[0]}`}
+                        Product_Price={product.Product_Price}
+                        Product_Name={product.Product_Name}
+                        category={product.category}
+                        Product_Location={product.Product_Location}
+                        displayTime={product.displayTime}
+                        style={{
+                          textDecoration: "none !important",
+                        }}
+                      />
+                    </div>
+                  </Link>
+                ))}
+          </Slider>
+        </div>
+      </div>
+      <div className="container ">
+        <div className="d-flex justify-content-between">
+          <h1>Real States</h1>
+          <Link to={getCategoryLink("Vehicles")} className="link-no-decoration">
+            <h1 >
+              Display all
+              <FaLongArrowAltRight />
+            </h1>
+          </Link>
+        </div>
+        <div className="   ">
+          <Slider {...sliderSettings}>
+            {sortedProducts &&
+              sortedProducts
+                .filter((product) =>( product.state === "Approved" && new Date(product.Product_DateExpiration) >= new Date()))
+                .map((product, index) => (
+                  <Link
+                    key={index}
+                    to={`/AdsDetails/${product._id}`}
+                    className="link-no-decoration "
+                  >
+                    <div
+                      className="d-flex align-items-center justify-content-center "
+                      style={{ height: "410px" }}
+                    >
+                      <CardProduct
+                        Product_Picture={`http://localhost:3000/${product.Product_Picture[0]}`}
+                        Product_Price={product.Product_Price}
+                        Product_Name={product.Product_Name}
+                        category={product.category}
+                        Product_Location={product.Product_Location}
+                        displayTime={product.displayTime}
+                        style={{
+                          textDecoration: "none !important",
+                        }}
+                      />
+                    </div>
+                  </Link>
+                ))}
+          </Slider>
+        </div>
+      </div>
+      <div className="d-flex justify-content-center mt-5">
+      <Link
+                  data-mdb-ripple-init
+                  type="button"
+                  to={getCategoryLink("recent")}
+                  className="btn    "
+                  style={{color: "#424242",border:"2px solid  #424242 ",borderRadius:"50px"}}
+                >
+                  Display All Ads
+                </Link>
       </div>
     </div>
   );

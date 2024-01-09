@@ -10,8 +10,9 @@ export const CardProduct = ({
   category,
   Product_Location,
   displayTime,
+  Product_DateExpiration
 }) => {
-  
+  const isExpired = new Date(Product_DateExpiration) < new Date();
   return (
     <div className="mx-2   ">
       <Card className="  CardProduct"style={{ width: "13rem",  textDecoration: "none"  }}>
@@ -21,7 +22,11 @@ export const CardProduct = ({
           src={Product_Picture}
           alt={"Product_Picture"}
         />
-
+  {isExpired && (
+          <div className="expired-bar">
+            <p>Expired</p>
+          </div>
+        )}
         <Card.Body>
           <Card.Title>
             <div style={{ color: "red", fontWeight: "bold" }}>

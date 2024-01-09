@@ -94,10 +94,10 @@ export const ProductsManagement = () => {
   const filteredData = ads.filter(
     (ads) =>
       (ads.Product_Name?.toLowerCase().includes(filter.toLowerCase()) ||
-      ads.category?.toLowerCase().includes(filter.toLowerCase()) ||
-      ads.Product_Price?.toLowerCase().includes(filter.toLowerCase())) ?? false
+        ads.category?.toLowerCase().includes(filter.toLowerCase()) ||
+        ads.Product_Price?.toLowerCase().includes(filter.toLowerCase())) ??
+      false
   );
-  
 
   // Paginate the filtered data
   const paginatedData = filteredData.slice(offset, offset + itemsPerPage);
@@ -150,13 +150,43 @@ export const ProductsManagement = () => {
                     />
                   )}
                 </td>
-                <td ><div style={{ overflow: "hidden",  textOverflow:" ellipsis", whiteSpace: "nowrap", width: "150px" }}>{e.Product_Name}</div></td>
+                <td>
+                  <div
+                    style={{
+                      overflow: "hidden",
+                      textOverflow: " ellipsis",
+                      whiteSpace: "nowrap",
+                      width: "150px",
+                    }}
+                  >
+                    {e.Product_Name}
+                  </div>
+                </td>
 
                 <td>{e.category}</td>
                 <td>{e.Product_Price}</td>
                 <td>{formatDate(e.Product_Date)}</td>
-            
-                <td style={{ color: e.state === "Approved" ? "green" : e.state==="pending"?"#ff9966" : "red"}}>{e.state}</td>
+
+                <td className="pt-2">
+                  <p
+                    style={{
+                      textAlign: "center",
+                     paddingTop:"6px",
+                      height: "30px",
+                      width: "75px",
+                      fontSize: "12px",
+                      borderRadius: "50px",
+                      backgroundColor:
+                        e.state === "Approved"
+                          ? "#99EDC3"
+                          : e.state === "pending"
+                          ? "#FCAE1E"
+                          : "#E52B50",
+                    }}
+                  >
+                    {e.state}
+                  </p>
+                </td>
 
                 <td className=" d-flex  ">
                   <button className="btn btn-danger  mx-1 ">

@@ -1,56 +1,40 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <div>
-      <section className="fixed-bt mt-5">
-        <footer className="bg-body-tertiary text-center text-md-start">
-          <div className="container p-4">
-            <div className="row">
-              <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 className="text-uppercase">Footer Content</h5>
-                <p>
-                  L'utilisation de ce site Internet implique l'acceptation des
-                  Conditions générales et du règlement sur le Respect de la vie
-                  privée.
-                </p>
-              </div>
-
-              <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 className="text-uppercase">Links</h5>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <a href="#!" className="text-body">
-                      Link 1
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-body">
-                      Link 2
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-body">
-                      Link 3
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" className="text-body">
-                      Link 4
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 className="text-uppercase mb-0">Contactez-nous</h5>
- 
-              </div>
-            </div>
+    <div className=" "style={{marginTop:"70px"}} >
+      <section >
+        <footer
+          className="text-center text-white"
+          style={{backgroundColor: "white"}}
+        >
+          <div className="container p-4 pb-0">
+            <section className="">
+              <p className="d-flex justify-content-center align-items-center" style={{color: "#424242"}}>
+                <Link        className="btn    "   type="button" to="./SignUp"><span className="me-3">Register for free</span></Link>
+                <Link
+                  data-mdb-ripple-init
+                  type="button"
+                  to="./SignIn"
+                  className="btn    "
+                  style={{color: "#424242",border:"2px solid  #424242 ",borderRadius:"50px"}}
+                >
+                  Sign up!
+                </Link>
+              </p>
+            </section>
           </div>
 
-          <div className="text-center p-3">© 2020 Copyright:Annonces.com</div>
+          <div
+            className="text-center p-3"
+            style={{color: "#424242"}}
+          >
+            © 2020 Copyright:
+            <p   >
+             Big Sale
+            </p>
+          </div>
         </footer>
       </section>
     </div>
