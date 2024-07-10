@@ -26,7 +26,7 @@ export const App = () => {
     checkAuthentication();
   }, [cookies.access_token, setIsAuthenticated]);
   if (loading) {
-    // You can render a loading indicator here
+ 
     return <div>Loading...</div>;
   }
   return (
