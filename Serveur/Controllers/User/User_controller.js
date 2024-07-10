@@ -129,14 +129,13 @@ exports.DeleteSpecificUser = asyncHandler(async (req, res) => {
 /**************************************** */
 exports.Update_spec_User = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { User_name, User_firstname, User_email,   User_phone } =
-    req.body;
- 
+  const { User_name, User_firstname, User_email, User_phone } = req.body;
+
   const updateFields = {
     User_name: User_name,
     User_firstname: User_firstname,
     User_email: User_email,
-   
+
     User_phone: User_phone,
   };
   const update_spec_user = await User.findOneAndUpdate(
@@ -156,13 +155,10 @@ exports.Update_spec_User = asyncHandler(async (req, res) => {
 /**************************************** */
 exports.Update_spec_UserPassword = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { User_password  } =
-    req.body;
-    const hashedPassword = await bcrypt.hash(User_password, 10);
+  const { User_password } = req.body;
+  const hashedPassword = await bcrypt.hash(User_password, 10);
   const updateFields = {
-  
     User_password: hashedPassword,
- 
   };
   const update_spec_userpassword = await User.findOneAndUpdate(
     { _id: id },

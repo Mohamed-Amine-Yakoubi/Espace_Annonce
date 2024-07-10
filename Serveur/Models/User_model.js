@@ -10,7 +10,7 @@ const UserShema = new Shema({
   User_phone: { type: String, required: [true, "required"] },
   role: {
     type: String,
-    enum: ['client', 'admin','superadmin'], // Define possible roles
+    enum: ['client', 'admin'], // Define possible roles
     default: 'client',
   },
 });
